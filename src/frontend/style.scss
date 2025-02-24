@@ -1,0 +1,12 @@
+$primary-color: #333;
+
+nav {
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	a {
+		color: $primary-color;
+	}
+}
