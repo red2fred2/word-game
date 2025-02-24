@@ -1,0 +1,26 @@
+{
+	"actionButtons": {
+		"commands": [
+			{
+				"name": "Clean",
+				"command": "sh clean.sh",
+				"singleInstance": true
+			}, {
+				"name": "Build",
+				"command": "sh build.sh",
+				"singleInstance": true
+			}, {
+				"name": "Run",
+				"command": "sh run.sh",
+				"singleInstance": true
+			}, {
+				"name": "Kill Docker",
+				"command": "sh kill-docker.sh",
+				"singleInstance": true
+			}
+		],
+		"defaultColor": "white",
+		"reloadButton": "↻",
+		"loadNpmCommands": false
+	}
+}
