@@ -1,14 +1,10 @@
-$primary-color: #3e9;
-$primary-color-darker: #0c7;
-
-$secondary-color: #b88c9e;
-$secondary-color-darker: #704c5e;
-$secondary-color-lighter: #f1c8db;
-
-$background-color: #001524;
+@use 'include-media' as *;
+@use 'variables' as *;
 
 html, body {
 	margin: 0;
+	width: 100vw;
+	height: 100vh;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
 	'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -17,4 +13,7 @@ html, body {
 	overscroll-behavior: contain;
 	position: fixed;
 	overflow: hidden;
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none;
 }
