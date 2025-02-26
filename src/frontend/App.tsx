@@ -2,6 +2,7 @@ import { Component, JSX, StrictMode } from 'react';
 import { createTheme } from '@mui/material';
 import { ThemeProvider, Theme } from '@mui/material/styles';
 
+import GameBoard from './GameBoard/GameBoard';
 import Navbar from './Navbar/Navbar';
 
 import './style.scss';
@@ -22,10 +23,9 @@ export default class App extends Component {
 		<StrictMode>
 			<ThemeProvider theme={theme}>
 				<Navbar/>
-				<img
-					src="assets/Marie_Curie_c._1920s.jpg"
-					alt="Marie Curie"
-				/>
+				<div className="flex-container">
+					<GameBoard/>
+				</div>
 			</ThemeProvider>
 		</StrictMode>
 }

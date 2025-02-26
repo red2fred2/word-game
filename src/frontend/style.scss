@@ -13,7 +13,19 @@ html, body {
 	overscroll-behavior: contain;
 	position: fixed;
 	overflow: hidden;
-	-webkit-user-select: none; /* Safari */
-	-ms-user-select: none; /* IE 10 and IE 11 */
+	-webkit-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
+}
+
+.flex-container {
+	display: flex;
+	flex: 1;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+	width: 100vw;
+	height: 100vh;
 }
