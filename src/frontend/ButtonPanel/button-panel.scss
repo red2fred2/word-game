@@ -1,0 +1,71 @@
+.game-buttons {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	justify-content: center;
+	width: 100%;
+}
+
+.icon-button {
+	aspect-ratio: 1 / 1;
+	color: $secondary-color !important;
+}
+
+.interaction-buttons {
+	justify-content: center;
+
+	@include media('<desktop') {
+		flex: 1;
+		flex-direction: column;
+		justify-content: flex-end;
+		margin: 5%;
+	}
+
+	@include media('>=desktop') {
+		background-color: white;
+		border-radius: 4px;
+		box-shadow: var(--Paper-shadow);
+		flex: 0;
+		flex-direction: column-reverse;
+		justify-content: center;
+		margin: auto;
+		margin-left: 1px;
+		padding: 10px
+	}
+}
+
+.rearrangement-buttons {
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+	justify-content: space-evenly;
+	width: 100%;
+}
+
+.rotate-90 {
+	rotate: -90deg;
+}
+
+.score {
+	color: white;
+	text-align: center;
+
+	@include media('>=desktop') {
+		display: none;
+	}
+}
+
+.score-timer-container {
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.timer {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+
+	@include media('>=desktop') {
+		display: none;
+	}
+}

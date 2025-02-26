@@ -18,6 +18,18 @@ html, body {
 	user-select: none;
 }
 
+.body-container {
+	justify-content: space-around;
+
+	@include media('<desktop') {
+		flex-direction: column-reverse;
+	}
+
+	@include media('>=desktop') {
+		flex-direction: row;
+	}
+}
+
 .flex-container {
 	display: flex;
 	flex: 1;

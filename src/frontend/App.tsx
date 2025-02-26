@@ -3,6 +3,7 @@ import { createTheme } from '@mui/material';
 import { ThemeProvider, Theme } from '@mui/material/styles';
 
 import GameBoard from './GameBoard/GameBoard';
+import ButtonPanel from './ButtonPanel/ButtonPanel';
 import Navbar from './Navbar/Navbar';
 
 import './style.scss';
@@ -23,8 +24,9 @@ export default class App extends Component {
 		<StrictMode>
 			<ThemeProvider theme={theme}>
 				<Navbar/>
-				<div className="flex-container">
+				<div className="body-container flex-container">
 					<GameBoard/>
+					<ButtonPanel/>
 				</div>
 			</ThemeProvider>
 		</StrictMode>
