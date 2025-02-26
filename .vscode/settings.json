@@ -17,6 +17,10 @@
 				"name": "Kill Docker",
 				"command": "sh kill-docker.sh",
 				"singleInstance": true
+			}, {
+				"name": "Build and reload",
+				"command": "sh kill-docker.sh && sh build.sh; sh run.sh",
+				"singleInstance": true
 			}
 		],
 		"defaultColor": "white",
