@@ -15,3 +15,28 @@
 		margin-top: 1%;
 	}
 }
+
+.game-board-container {
+	display: grid;
+	grid-area: auto;
+	grid-auto-rows: 1fr;
+	grid-gap: 2px 2px;
+	height: 100%;
+	width: 100%;
+}
+
+.grid-3 {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-5 {
+	grid-template-columns: repeat(5, 1fr);
+}
+
+.grid-6 {
+	grid-template-columns: repeat(6, 1fr);
+}
