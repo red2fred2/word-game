@@ -4,7 +4,7 @@ import FlipIcon from '@mui/icons-material/Flip';
 import Rotate90DegreesCwIcon from '@mui/icons-material/Rotate90DegreesCw';
 import Rotate90DegreesCcwIcon from '@mui/icons-material/Rotate90DegreesCcw';
 
-import './interaction-buttons.scss';
+import './button-panel.scss';
 
 export default class ButtonPanel extends Component {
 	render = (): JSX.Element =>
