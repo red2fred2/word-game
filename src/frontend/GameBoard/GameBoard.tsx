@@ -1,5 +1,5 @@
 import { Component, JSX } from 'react';
-import { Box,  Card } from '@mui/material';
+import { Card } from '@mui/material';
 
 import './game-board.scss';
 
