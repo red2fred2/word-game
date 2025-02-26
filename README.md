@@ -11,7 +11,7 @@ A boggle-like game run as a web app.
 
 ### Building
 1. ```gulp```
-2. ```rollup -c```
+2. ```rolldown -c```
 3. ```docker buildx build -t red2fred2/word-game .```
 
 or run the build script
