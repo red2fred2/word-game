@@ -21,6 +21,8 @@ export default class Tile extends Component<TileProps> {
 
 	render = (): JSX.Element =>
 		<Box className="tile">
-			{this.props.letter}
+			<Box className="tile-inner">
+				{this.props.letter}
+			</Box>
 		</Box>
 }

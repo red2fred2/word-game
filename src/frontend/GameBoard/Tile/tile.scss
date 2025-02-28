@@ -1,12 +1,22 @@
 .tile {
-	align-items: center;
 	aspect-ratio: 1 / 1;
 	background-color: $secondary-color;
 	border-radius: 4px;
-	color: white;
 	display: flex;
 	padding: auto;
 	justify-content: center;
+}
+
+.tile-inner {
+	align-items: center;
+	aspect-ratio: 1 / 1;
+	background-color: rgba($color: black, $alpha: 0.1);
+	border-radius: 4px;
+	color: white;
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	margin: 10%;
 
 	@include media('<desktop') {
 		font-size: 3em;
@@ -14,5 +24,13 @@
 
 	@include media('>=desktop') {
 		font-size: 5em;
+	}
+}
+
+.grid-6 {
+	.tile-inner {
+		@include media('<desktop') {
+			font-size: 2em;
+		}
 	}
 }

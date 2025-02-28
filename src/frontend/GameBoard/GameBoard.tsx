@@ -22,10 +22,12 @@ export default class GameBoard extends Component<GameBoardProps, GameBoardState>
 
 		this.state = {
 			letters: [
-				['A', 'B', 'C', 'D'],
-				['E', 'F', 'G', 'H'],
-				['I', 'J', 'K', 'L'],
-				['M', 'N', 'O', 'P']
+				['A', 'B', 'C', 'D', 'E', 'F'],
+				['G', 'H', 'I', 'J', 'K', 'L'],
+				['M', 'N', 'O', 'P', 'Qu', 'R'],
+				['S', 'T', 'U', 'V', 'W', 'X'],
+				['Y', 'Z', 'U', 'V', 'W', 'X'],
+				['S', 'T', 'U', 'V', 'W', 'X']
 			],
 			sizeClass: `grid-${props.size}`
 		};
