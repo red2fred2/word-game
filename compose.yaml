@@ -1,0 +1,17 @@
+services:
+    node:
+        build: .
+        ports:
+          - "7070:7070"
+        develop:
+            watch:
+              - action: sync
+                path: ./output/frontend/
+                target: /application/frontend/
+
+              - action: sync+restart
+                path: ./output/backend
+                target: /application/backend
+
+              - action: rebuild
+                path: package.json

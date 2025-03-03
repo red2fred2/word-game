@@ -12,13 +12,16 @@ A boggle-like game run as a web app.
 ### Building
 1. ```gulp```
 2. ```rolldown -c```
-3. ```docker buildx build -t red2fred2/word-game .```
 
 or run the build script
 ```build.sh```
 
 ### Running
-```docker run -it -d -p 7070:7070/tcp --name word-game red2fred2/word-game```
+1. ```docker compose up -d --build```
 
 or run the run script
 ```run.sh```
+
+### Development
+1. ```rolldown -wc```
+2. ```docker compose watch```
