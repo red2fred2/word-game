@@ -26,29 +26,30 @@ export default class GameBoard extends Component<GameBoardProps, GameBoardState>
 				['G', 'H', 'I', 'J', 'K', 'L'],
 				['M', 'N', 'O', 'P', 'Qu', 'R'],
 				['S', 'T', 'U', 'V', 'W', 'X'],
-				['Y', 'Z', 'U', 'V', 'W', 'X'],
-				['S', 'T', 'U', 'V', 'W', 'X']
+				['Y', 'Z', 'A', 'B', 'C', 'D'],
+				['E', 'F', 'G', 'H', 'I', 'J']
 			],
 			sizeClass: `grid-${props.size}`
 		};
 	}
 
-	createTiles(): JSX.Element[] {
-		let totalTiles: number = this.props.size * this.props.size;
+	createTiles = (size: number, letters: String[][]): JSX.Element[] => {
+		let totalTiles: number = size * size;
 		let tileNumbers: number[] = Array.from(Array(totalTiles).keys());
-		return tileNumbers.map(num => {
-			let row = num % this.props.size;
-			let col = Math.floor(num / this.props.size);
-			let letter = this.state.letters[col][row];
 
-			return <Tile row={row} col={col} letter={letter}/>
+		return tileNumbers.map(num => {
+			let row: number = num % size;
+			let col: number = Math.floor(num / size);
+			let letter: String = letters[col][row];
+
+			return <Tile row={row} col={col} letter={letter} key={num}/>
 		});
 	}
 
 	render = (): JSX.Element =>
 		<Box className="game-board">
 			<Box className={"game-board-container " + this.state.sizeClass}>
-				{this.createTiles()}
+				{this.createTiles(this.props.size, this.state.letters)}
 			</Box>
 		</Box>
 }
