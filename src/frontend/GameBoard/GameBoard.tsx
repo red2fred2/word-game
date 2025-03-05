@@ -2,6 +2,7 @@ import { Component, JSX } from 'react';
 import { Box } from '@mui/material';
 
 import Tile from './Tile/Tile';
+import { ActivationCallback } from './Tile/Tile';
 
 import './game-board.scss';
 
@@ -41,13 +42,16 @@ export default class GameBoard extends Component<GameBoardProps, GameBoardState>
 			let row: number = num % size;
 			let col: number = Math.floor(num / size);
 			let letter: String = letters[col][row];
+			let tileCallback: ActivationCallback = this.getTileActivation(row, col);
 
-			return <Tile row={row} col={col} letter={letter} activationCallback={this.tileActivation} key={num}/>
+			return <Tile letter={letter} activationCallback={tileCallback} key={num}/>
 		});
 	}
 
-	tileActivation = (goodCallback: () => void, badCallback: () => void): void => {
-		setTimeout(goodCallback, 1000);
+	// Gets the activation callback function for a specific tile
+	getTileActivation = (row: number, col: number): ActivationCallback =>
+		(goodCallback: () => void, badCallback: () => void) => {
+			setTimeout(goodCallback, 1000);
 	}
 
 	render = (): JSX.Element =>

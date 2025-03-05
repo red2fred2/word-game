@@ -15,8 +15,6 @@ export enum TileState {
 }
 
 export interface TileProps {
-	row: number,
-	col: number,
 	letter: String,
 	activationCallback: ActivationCallback
 }
@@ -29,11 +27,7 @@ export default class Tile extends Component<TileProps, TileComponentState> {
 	elementRef: RefObject<Element | null> = createRef();
 
 	constructor(props: TileProps) {
-		if(props.row < 0) throw new Error('Tile was given a row < 0');
-		if(props.col < 0) throw new Error('Col was given a row < 0');
-
 		super(props);
-
 		this.state = {state: TileState.Inactive};
 	}
 
