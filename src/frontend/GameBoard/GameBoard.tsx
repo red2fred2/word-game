@@ -6,6 +6,7 @@
 import { Component, JSX } from 'react';
 import { Box } from '@mui/material';
 
+import Game from '../game/Game';
 import Tile from './Tile/Tile';
 import { ActivationCallback } from './Tile/Tile';
 
@@ -41,6 +42,8 @@ export interface GameBoardState {
 export default class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	/** Bad callbacks for the currently active {@link Tile | Tiles} on the board */
 	badCallbacks: Function[];
+	/** The game being played on this board */
+	game: Game;
 	/** Good callbacks for the currently active {@link Tile | Tiles} on the board */
 	goodCallbacks: Function[];
 	/** The letters of the active {@link Tile | Tiles} */
@@ -60,6 +63,7 @@ export default class GameBoard extends Component<GameBoardProps, GameBoardState>
 		super(props);
 
 		// Initialize properties
+		this.game = new Game(props.size);
 		this.badCallbacks = [];
 		this.goodCallbacks = [];
 		this.selectedLetters = [];
