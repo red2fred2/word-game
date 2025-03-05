@@ -11,8 +11,8 @@ export interface GameBoardProps {
 }
 
 export interface GameBoardState {
-	letters: String[][],
-	sizeClass: String
+	letters: string[][],
+	sizeClass: string
 }
 
 export default class GameBoard extends Component<GameBoardProps, GameBoardState> {
@@ -34,14 +34,14 @@ export default class GameBoard extends Component<GameBoardProps, GameBoardState>
 		};
 	}
 
-	createTiles = (size: number, letters: String[][]): JSX.Element[] => {
+	createTiles = (size: number, letters: string[][]): JSX.Element[] => {
 		let totalTiles: number = size * size;
 		let tileNumbers: number[] = Array.from(Array(totalTiles).keys());
 
 		return tileNumbers.map(num => {
 			let row: number = num % size;
 			let col: number = Math.floor(num / size);
-			let letter: String = letters[col][row];
+			let letter: string = letters[col][row];
 			let tileCallback: ActivationCallback = this.getTileActivation(row, col);
 
 			return <Tile letter={letter} activationCallback={tileCallback} key={num}/>

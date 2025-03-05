@@ -15,7 +15,7 @@ export enum TileState {
 }
 
 export interface TileProps {
-	letter: String,
+	letter: string,
 	activationCallback: ActivationCallback
 }
 
@@ -43,7 +43,7 @@ export default class Tile extends Component<TileProps, TileComponentState> {
 	}
 
 	// Returns the css class that corresponds to the current tile state
-	getStateClass = (): String => {
+	getStateClass = (): string => {
 		switch(this.state.state) {
 			case TileState.Inactive:
 				return 'tile-inactive';
