@@ -1,10 +1,27 @@
 .tile {
 	aspect-ratio: 1 / 1;
-	background-color: $secondary-color;
 	border-radius: 4px;
 	display: flex;
 	padding: auto;
 	justify-content: center;
+}
+
+.tile-active {
+	background-color: $active-color;
+}
+
+.tile-inactive {
+	background-color: $secondary-color;
+}
+
+.tile-good {
+	animation: bounce 300ms linear;
+	background-color: $good-color;
+}
+
+.tile-bad {
+	animation: shake 300ms linear;
+	background-color: $bad-color;
 }
 
 .tile-inner {
@@ -32,5 +49,41 @@
 		@include media('<desktop') {
 			font-size: 2em;
 		}
+	}
+}
+
+@keyframes bounce {
+	0%, 100% {
+		transform: translateY(0);
+	}
+	10% {
+		transform: translateY(2px);
+	}
+	33% {
+		transform: translateY(-10px);
+	}
+	50% {
+		transform: translateY(0);
+	}
+	75% {
+		transform: translateY(-2px);
+	}
+}
+
+@keyframes shake {
+	0%, 100% {
+		transform: translateX(0);
+	}
+	10%, 30%, 50%, 70% {
+		transform: translateX(-10px);
+	}
+	20%, 40%, 60% {
+		transform: translateX(10px);
+	}
+	80% {
+		transform: translateX(8px);
+	}
+	90% {
+		transform: translateX(-8px);
 	}
 }

@@ -42,8 +42,12 @@ export default class GameBoard extends Component<GameBoardProps, GameBoardState>
 			let col: number = Math.floor(num / size);
 			let letter: String = letters[col][row];
 
-			return <Tile row={row} col={col} letter={letter} key={num}/>
+			return <Tile row={row} col={col} letter={letter} activationCallback={this.tileActivation} key={num}/>
 		});
+	}
+
+	tileActivation = (goodCallback: () => void, badCallback: () => void): void => {
+		setTimeout(goodCallback, 1000);
 	}
 
 	render = (): JSX.Element =>
