@@ -25,3 +25,6 @@ or run the run script
 ### Development
 1. ```rolldown -wc```
 2. ```docker compose watch```
+
+### Generating documentation
+1. ```typedoc --entryPointStrategy Expand src```
