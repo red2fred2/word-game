@@ -5,7 +5,7 @@ import './tile.scss';
 
 const TILE_GOOD_BAD_TIMEOUT_MS: number = 500;
 
-export type ActivationCallback = (goodCallback: () => void, badCallback: () => void) => void;
+export type ActivationCallback = (goodCallback: () => void, badCallback: () => void, isActive: boolean) => void;
 
 export enum TileState {
 	Inactive,
@@ -39,7 +39,9 @@ export default class Tile extends Component<TileProps, TileComponentState> {
 
 	activate = (): void => {
 		this.setState({state: TileState.Active});
-		this.props.activationCallback(this.setGood, this.setBad);
+
+		let isActive: boolean = this.state.state !== TileState.Inactive;
+		this.props.activationCallback(this.setGood, this.setBad, isActive);
 	}
 
 	// Returns the css class that corresponds to the current tile state

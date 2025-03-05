@@ -16,10 +16,18 @@ export interface GameBoardState {
 }
 
 export default class GameBoard extends Component<GameBoardProps, GameBoardState> {
+	badCallbacks: Function[];
+	goodCallbacks: Function[];
+	selectedLetters: string;
+
 	constructor(props: GameBoardProps) {
 		if(props.size < 3 || props.size > 6) throw new Error('Incorrect size prop given to GameBoard');
 
 		super(props);
+
+		this.badCallbacks = [];
+		this.goodCallbacks = [];
+		this.selectedLetters = '';
 
 		this.state = {
 			letters: [
@@ -42,16 +50,34 @@ export default class GameBoard extends Component<GameBoardProps, GameBoardState>
 			let row: number = num % size;
 			let col: number = Math.floor(num / size);
 			let letter: string = letters[col][row];
-			let tileCallback: ActivationCallback = this.getTileActivation(row, col);
+			let tileCallback: ActivationCallback = this.getTileActivation(row, col, letter);
 
 			return <Tile letter={letter} activationCallback={tileCallback} key={num}/>
 		});
 	}
 
+	clearActiveTiles = (): void => {
+		this.badCallbacks = [];
+		this.goodCallbacks = [];
+		this.selectedLetters = '';
+	}
+
 	// Gets the activation callback function for a specific tile
-	getTileActivation = (row: number, col: number): ActivationCallback =>
-		(goodCallback: () => void, badCallback: () => void) => {
-			setTimeout(goodCallback, 1000);
+	getTileActivation = (row: number, col: number, letter: string): ActivationCallback =>
+		(goodCallback: () => void, badCallback: () => void, isActive: boolean) => {
+			// Do something when re-clicking an active tile
+			if(isActive) {
+				console.log(this.selectedLetters);
+				forEachWithDelay(this.goodCallbacks, cb => cb(), 50);
+				this.clearActiveTiles();
+
+				return;
+			}
+
+			// Add active information
+			this.badCallbacks.push(badCallback);
+			this.goodCallbacks.push(goodCallback);
+			this.selectedLetters = this.selectedLetters.concat(letter);
 	}
 
 	render = (): JSX.Element =>
@@ -60,4 +86,10 @@ export default class GameBoard extends Component<GameBoardProps, GameBoardState>
 				{this.createTiles(this.props.size, this.state.letters)}
 			</Box>
 		</Box>
+}
+
+// Run a foreach loop with a `delay` ms delay between each execution
+function forEachWithDelay(array: any[], callback: (arg0: any) => void, delay: number) {
+	array.forEach((element, index) =>
+		setTimeout(callback, delay * index, element));
 }
