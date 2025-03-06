@@ -15,12 +15,12 @@
 }
 
 .tile-good {
-	animation: bounce 300ms linear;
+	animation: bounce 300ms;
 	background-color: $good-color;
 }
 
 .tile-bad {
-	animation: shake 300ms linear;
+	animation: shake 300ms;
 	background-color: $bad-color;
 }
 
