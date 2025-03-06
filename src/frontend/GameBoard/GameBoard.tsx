@@ -146,10 +146,14 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		(goodCallback: () => void, badCallback: () => void, isActive: boolean) => {
 			// Do something when re-clicking an active tile, then bail out
 			if(isActive) {
-				console.log(this.selectedLetters);
-				forEachWithDelay(this.goodCallbacks, cb => cb(), 50);
-				this.clearActiveTiles();
+				// Check if the word was real
+				const word = this.selectedLetters.join('');
+				const isWord = this.game.checkWord(word);
 
+				if(isWord) forEachWithDelay(this.goodCallbacks, cb => cb(), 50);
+				else forEachWithDelay(this.badCallbacks, cb => cb(), 50);
+
+				this.clearActiveTiles();
 				return true;
 			}
 

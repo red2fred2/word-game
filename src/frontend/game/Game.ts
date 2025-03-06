@@ -3,7 +3,9 @@
  * @packageDocumentation
  */
 
-import { generateLetters, GenerationOptions } from "./generation";
+import { generateLetters, GenerationOptions } from './generation';
+
+import dictionary from './dictionary';
 
 /**
  * Keeps track of game state and information
@@ -21,6 +23,10 @@ export class Game {
 			boardSize: size
 		};
 		this.letters = generateLetters(generationOptions);
+	}
+
+	checkWord = (word: string): boolean => {
+		return dictionary.includes(word.toLowerCase());
 	}
 
 	/** Gets a letter on the game board */
