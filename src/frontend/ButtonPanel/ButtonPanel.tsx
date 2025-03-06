@@ -6,7 +6,7 @@ import Rotate90DegreesCcwIcon from '@mui/icons-material/Rotate90DegreesCcw';
 
 import './button-panel.scss';
 
-export default class ButtonPanel extends Component {
+export class ButtonPanel extends Component {
 	render = (): JSX.Element =>
 		<Box className="flex-container interaction-buttons">
 			<Box className="flex-container score-timer-container">

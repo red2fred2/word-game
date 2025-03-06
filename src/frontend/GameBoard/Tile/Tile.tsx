@@ -56,7 +56,7 @@ export interface TileComponentState {
  * @remarks Little more than a glorified button, but it has enough code to be worth splitting
  * into its own component.
  */
-export default class Tile extends Component<TileProps, TileComponentState> {
+export class Tile extends Component<TileProps, TileComponentState> {
 	elementRef: RefObject<Element | null> = createRef();
 
 	/**

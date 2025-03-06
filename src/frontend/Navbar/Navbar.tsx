@@ -1,11 +1,11 @@
 import { Component, JSX } from 'react';
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 
-import Login from './Login/Login';
-import NavbarScore from './NavbarScore/NavbarScore';
-import NavbarTimer from './NavbarTimer/NavbarTimer';
+import { Login } from './Login/Login';
+import { NavbarScore } from './NavbarScore/NavbarScore';
+import { NavbarTimer } from './NavbarTimer/NavbarTimer';
 
-export default class Navbar extends Component {
+export class Navbar extends Component {
 	render = (): JSX.Element =>
 		<AppBar position="static">
 			<Toolbar>

@@ -6,7 +6,7 @@
 /**
  * A type that can have a value or not
  */
-export default class Option<T> {
+export class Option<T> {
 	hasValue: boolean;
 	value: T | null;
 

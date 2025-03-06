@@ -6,9 +6,8 @@
 import { Component, JSX } from 'react';
 import { Box } from '@mui/material';
 
-import Game from '../game/Game';
-import Tile from './Tile/Tile';
-import { ActivationCallback } from './Tile/Tile';
+import { Game } from '../game/Game';
+import { ActivationCallback, Tile } from './Tile/Tile';
 
 import './game-board.scss';
 
@@ -39,7 +38,7 @@ export interface GameBoardState {
 /**
  * The game board used to interact with the word game
  */
-export default class GameBoard extends Component<GameBoardProps, GameBoardState> {
+export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	/** Bad callbacks for the currently active {@link Tile | Tiles} on the board */
 	badCallbacks: Function[];
 	/** The game being played on this board */
@@ -168,7 +167,7 @@ export default class GameBoard extends Component<GameBoardProps, GameBoardState>
  * @param callback - Callback function to run over the array
  * @param delay - Delay between each callback being run
  */
-function forEachWithDelay(array: any[], callback: (arg0: any) => void, delay: number) {
+function forEachWithDelay<T>(array: T[], callback: (arg0: T) => void, delay: number) {
 	array.forEach((element, index) =>
 		setTimeout(callback, delay * index, element));
 }
