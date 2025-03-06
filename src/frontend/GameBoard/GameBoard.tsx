@@ -27,8 +27,6 @@ export interface GameBoardProps {
  * React state for {@link GameBoard}
  */
 export interface GameBoardState {
-	/** 2D array of letters on the board */
-	letters: string[][],
 	/**
 	 * CSS class name to use for styling this particular size of board
 	 * @remarks Will be something along the lines of 'grid-n'
@@ -67,15 +65,8 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		this.clearActiveTiles();
 
 		// Initialize state
+		this.game = new Game(props.size);
 		this.state = {
-			letters: [
-				['A', 'B', 'C', 'D', 'E', 'F'],
-				['G', 'H', 'I', 'J', 'K', 'L'],
-				['M', 'N', 'O', 'P', 'Qu', 'R'],
-				['S', 'T', 'U', 'V', 'W', 'X'],
-				['Y', 'Z', 'A', 'B', 'C', 'D'],
-				['E', 'F', 'G', 'H', 'I', 'J']
-			],
 			sizeClass: `grid-${props.size}`
 		};
 	}
@@ -125,7 +116,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		return tileNumbers.map(num => {
 			let row: number = num % this.props.size;
 			let col: number = Math.floor(num / this.props.size);
-			let letter: string = this.state.letters[col][row];
+			let letter: string = this.game.getLetter(row, col);
 			let tileCallback: ActivationCallback = this.getTileActivation(row, col, letter);
 
 			return <Tile letter={letter} activationCallback={tileCallback} key={num}/>
