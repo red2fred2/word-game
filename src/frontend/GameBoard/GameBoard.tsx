@@ -27,6 +27,7 @@ export interface GameBoardProps {
  * React state for {@link GameBoard}
  */
 export interface GameBoardState {
+	rotation: number,
 	/**
 	 * CSS class name to use for styling this particular size of board
 	 * @remarks Will be something along the lines of 'grid-n'
@@ -44,6 +45,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	game: Game;
 	/** Good callbacks for the currently active {@link Tile | Tiles} on the board */
 	goodCallbacks: Function[];
+	/** The last {@link Tile | Tiles} that was activated */
 	lastActivatedTile: Option<[number, number]>;
 	/** The letters of the active {@link Tile | Tiles} */
 	selectedLetters: string[];
@@ -67,6 +69,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		// Initialize state
 		this.game = new Game(props.size);
 		this.state = {
+			rotation: 0,
 			sizeClass: `grid-${props.size}`
 		};
 	}
@@ -88,6 +91,11 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		let colGood = Math.abs(col - lastCol) <= 1;
 
 		return rowGood && colGood;
+	}
+
+	componentDidMount = (): void => {
+		window.addEventListener('rotate-ccw', () => this.rotateCcw());
+		window.addEventListener('rotate-cw', () => this.rotateCw());
 	}
 
 	/**
@@ -171,12 +179,26 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 			return true;
 	}
 
+	rotateCcw = () => {
+		let rotation = this.state.rotation;
+		rotation = (rotation + 270) % 360;
+		this.setState({rotation: rotation});
+		console.log(this.state.rotation);
+	}
+
+	rotateCw = () => {
+		let rotation = this.state.rotation;
+		rotation = (rotation + 90) % 360;
+		this.setState({rotation: rotation});
+		console.log(this.state.rotation);
+	}
+
 	/**
 	 * Renders the react component
 	 */
 	render = (): JSX.Element =>
 		<Box className="game-board">
-			<Box className={"game-board-container " + this.state.sizeClass}>
+			<Box className={"game-board-container " + this.state.sizeClass + ` grid-rotate-${this.state.rotation}`}>
 				{this.createTiles()}
 			</Box>
 		</Box>

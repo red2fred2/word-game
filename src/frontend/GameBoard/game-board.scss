@@ -40,3 +40,37 @@
 .grid-6 {
 	grid-template-columns: repeat(6, 1fr);
 }
+
+.grid-rotate-0 {
+	rotate: 0deg;
+	transition: rotate 100ms;
+
+	.tile {
+		rotate: 0deg;
+	}
+}
+
+.grid-rotate-90 {
+	rotate: 90deg;
+	transition: rotate 100ms;
+
+	.tile {
+		rotate: -90deg;
+	}
+}
+.grid-rotate-180 {
+	rotate: 180deg;
+	transition: rotate 100ms;
+
+	.tile {
+		rotate: -180deg;
+	}
+}
+.grid-rotate-270 {
+	rotate: 270deg;
+	transition: rotate 100ms;
+
+	.tile {
+		rotate: -270deg;
+	}
+}

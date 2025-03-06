@@ -28,7 +28,7 @@ export class ButtonPanel extends Component {
 				</Button>
 			</Box>
 			<Box className="rearrangement-buttons">
-				<IconButton aria-label="Rotate Left" className="icon-button">
+				<IconButton aria-label="Rotate Left" className="icon-button" onClick={() => window.dispatchEvent(new Event('rotate-ccw'))}>
 					<Rotate90DegreesCcwIcon/>
 				</IconButton>
 				<IconButton aria-label="Flip X" className="icon-button">
@@ -37,7 +37,7 @@ export class ButtonPanel extends Component {
 				<IconButton aria-label="Flip Y" className="icon-button rotate-90">
 					<FlipIcon/>
 				</IconButton>
-				<IconButton aria-label="Rotate Right" className="icon-button">
+				<IconButton aria-label="Rotate Right" className="icon-button" onClick={() => window.dispatchEvent(new Event('rotate-cw'))}>
 					<Rotate90DegreesCwIcon/>
 				</IconButton>
 			</Box>
