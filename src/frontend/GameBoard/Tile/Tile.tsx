@@ -16,7 +16,7 @@ const TILE_GOOD_BAD_TIMEOUT_MS: number = 500;
  * @param badCallback - Callback to run when something bad happens to the tile
  * @param isActive - Is this Tile already active?
  */
-export type ActivationCallback = (goodCallback: () => void, badCallback: () => void, isActive: boolean) => void;
+export type ActivationCallback = (goodCallback: () => void, badCallback: () => void, isActive: boolean) => boolean;
 
 /**
  * State information for a {@link Tile}
@@ -72,10 +72,12 @@ export class Tile extends Component<TileProps, TileComponentState> {
 	 * Attempts to activate this tile
 	 */
 	activate = (): void => {
-		this.setState({state: TileState.Active});
-
 		let isActive: boolean = this.state.state !== TileState.Inactive;
-		this.props.activationCallback(this.setGood, this.setBad, isActive);
+		let canActivate = this.props.activationCallback(this.setGood, this.setBad, isActive);
+
+		if(canActivate) {
+			this.setState({state: TileState.Active});
+		}
 	}
 
 	/**

@@ -10,6 +10,7 @@ import { Game } from '../game/Game';
 import { ActivationCallback, Tile } from './Tile/Tile';
 
 import './game-board.scss';
+import { None, Option } from '../Option';
 
 /**
  * React props for {@link GameBoard}
@@ -45,6 +46,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	game: Game;
 	/** Good callbacks for the currently active {@link Tile | Tiles} on the board */
 	goodCallbacks: Function[];
+	lastActivatedTile: Option<[number, number]>;
 	/** The letters of the active {@link Tile | Tiles} */
 	selectedLetters: string[];
 
@@ -62,10 +64,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		super(props);
 
 		// Initialize properties
-		this.game = new Game(props.size);
-		this.badCallbacks = [];
-		this.goodCallbacks = [];
-		this.selectedLetters = [];
+		this.clearActiveTiles();
 
 		// Initialize state
 		this.state = {
@@ -82,6 +81,25 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	}
 
 	/**
+	 * Tests whether it is possible to activate a tile at (row, col)
+	 *
+	 * @param row - Row of the {@link Tile} in question
+	 * @param col - Column of the {@link Tile} in question
+	 * @returns true if the tile can be activated, false if not
+	 */
+	canTileActivate = (row: number, col: number): boolean => {
+		if(this.lastActivatedTile.isNone()) {
+			return true;
+		}
+
+		let [lastRow, lastCol] = this.lastActivatedTile.getElse(()=>{})!;
+		let rowGood = Math.abs(row - lastRow) <= 1;
+		let colGood = Math.abs(col - lastCol) <= 1;
+
+		return rowGood && colGood;
+	}
+
+	/**
 	 * Clears the active {@link Tile | Tiles}
 	 *
 	 * @remarks Does not call good or bad callbacks, so the {@link Tile | Tiles}
@@ -90,6 +108,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	clearActiveTiles = (): void => {
 		this.badCallbacks = [];
 		this.goodCallbacks = [];
+		this.lastActivatedTile = None();
 		this.selectedLetters = [];
 	}
 
@@ -140,13 +159,21 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 				forEachWithDelay(this.goodCallbacks, cb => cb(), 50);
 				this.clearActiveTiles();
 
-				return;
+				return true;
+			}
+
+			// See if this tile should be possible to activate
+			if(!this.canTileActivate(row, col)) {
+				return false;
 			}
 
 			// Add active tile information
 			this.badCallbacks.push(badCallback);
 			this.goodCallbacks.push(goodCallback);
+			this.lastActivatedTile.set([row, col]);
 			this.selectedLetters.push(letter);
+
+			return true;
 	}
 
 	/**
