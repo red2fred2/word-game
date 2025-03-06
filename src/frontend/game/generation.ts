@@ -3,7 +3,7 @@
  * @packageDocumentation
  */
 
-// import dictionary from './dictionary';
+// import dictionary from './dictionary.json';
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Qu', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 const LETTER_PDF = [0.08463913513760994, 0.018296486639615868, 0.043775360120870126, 0.03238884469447671, 0.1077220673828069, 0.011227987844311034, 0.023643215649018785, 0.02643146972809944, 0.0895672254239325, 0.0015612391477282481, 0.007672849433135126, 0.05577509686206955, 0.030103929996051115, 0.07194748559230368, 0.07199441433501398, 0.03252362175433375, 0.0016834255692971562, 0.07043288903641555, 0.0716178397898508, 0.06607051902044833, 0.03762740867494978, 0.009464440031362134, 0.006411782548230729, 0.0030025810808490664, 0.020195956115902546, 0.004222728391317038];
@@ -32,7 +32,7 @@ export function generateLetters(options: GenerationOptions): string[][] {
 // function getWordlistPDF(): void {
 // 	let count: Map<string, number> = new Map([['A', 0], ['B', 0], ['C', 0], ['D', 0], ['E', 0], ['F', 0], ['G', 0], ['H', 0], ['I', 0], ['J', 0], ['K', 0], ['L', 0], ['M', 0], ['N', 0], ['O', 0], ['P', 0], ['Q', 0], ['R', 0], ['S', 0], ['T', 0], ['U', 0], ['V', 0], ['W', 0], ['X', 0], ['Y', 0], ['Z', 0]]);
 
-// 	dictionary.forEach((word: string) => {
+// 	(dictionary as string[]).forEach((word: string) => {
 // 		const w = word.toUpperCase();
 // 		w.split('').forEach((letter: string) => {
 // 			const c: number = count.get(letter)!;

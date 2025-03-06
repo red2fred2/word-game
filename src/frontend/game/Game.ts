@@ -5,7 +5,7 @@
 
 import { generateLetters, GenerationOptions } from './generation';
 
-import dictionary from './dictionary';
+import dictionary from './dictionary.json';
 
 /**
  * Keeps track of game state and information
@@ -26,7 +26,7 @@ export class Game {
 	}
 
 	checkWord = (word: string): boolean => {
-		return dictionary.includes(word.toLowerCase());
+		return (dictionary as string[]).includes(word.toLowerCase());
 	}
 
 	/** Gets a letter on the game board */
