@@ -198,7 +198,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	 */
 	render = (): JSX.Element =>
 		<Box className="game-board">
-			<Box className={"game-board-container " + this.state.sizeClass + ` grid-rotate-${this.state.rotation}`}>
+			<Box className={"game-board-container " + this.state.sizeClass + ` board-rotate-${this.state.rotation}`}>
 				{this.createTiles()}
 			</Box>
 		</Box>
