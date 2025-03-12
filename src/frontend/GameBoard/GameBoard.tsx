@@ -6,7 +6,7 @@
 import { Component, JSX } from 'react';
 import { Box } from '@mui/material';
 
-import { Game } from '../game/Game';
+import { WordCheck, Game } from '../game/Game';
 import { ActivationCallback, Tile } from './Tile/Tile';
 
 import './game-board.scss';
@@ -49,6 +49,8 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	goodCallbacks: Function[];
 	/** The last {@link Tile | Tiles} that was activated */
 	lastActivatedTile: Option<[number, number]>;
+	/** Mid callbacks for the currently active {@link Tile | Tiles} on the board */
+	midCallbacks: Function[];
 	/** The letters of the active {@link Tile | Tiles} */
 	selectedLetters: string[];
 
@@ -112,6 +114,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	 */
 	clearActiveTiles = (): void => {
 		this.badCallbacks = [];
+		this.midCallbacks = [];
 		this.goodCallbacks = [];
 		this.lastActivatedTile = None();
 		this.selectedLetters = [];
@@ -166,6 +169,8 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	 *
 	 * @param goodCallback - Callback function to run when something good happens
 	 * to the {@link Tile}
+	 * @param midCallback - Callback function to run when something not good happens
+	 * to the {@link Tile}
 	 * @param badCallback - Callback function to run when something bad happens to
 	 * the {@link Tile}
 	 * @param isActive - Is this {@link Tile} already active?
@@ -173,14 +178,15 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	 * @returns An {@link ActivationCallback} function for a {@link Tile} to run when it is activated
 	 */
 	getTileActivation = (row: number, col: number, letter: string): ActivationCallback =>
-		(goodCallback: () => void, badCallback: () => void, isActive: boolean) => {
+		(goodCallback: () => void, midCallback: () => void, badCallback: () => void, isActive: boolean) => {
 			// Do something when re-clicking an active tile, then bail out
 			if(isActive) {
 				// Check if the word was real
-				const word = this.selectedLetters.join('');
-				const isWord = this.game.checkWord(word);
+				const word: string = this.selectedLetters.join('');
+				const wordCheck: WordCheck = this.game.checkWord(word);
 
-				if(isWord) forEachWithDelay(this.goodCallbacks, cb => cb(), 50);
+				if(wordCheck == WordCheck.Found) forEachWithDelay(this.goodCallbacks, cb => cb(), 50);
+				else if(wordCheck == WordCheck.AlreadyFound) forEachWithDelay(this.midCallbacks, cb => cb(), 50);
 				else forEachWithDelay(this.badCallbacks, cb => cb(), 50);
 
 				this.clearActiveTiles();
@@ -194,6 +200,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 
 			// Add active tile information
 			this.badCallbacks.push(badCallback);
+			this.midCallbacks.push(midCallback);
 			this.goodCallbacks.push(goodCallback);
 			this.lastActivatedTile.set([row, col]);
 			this.selectedLetters.push(letter);

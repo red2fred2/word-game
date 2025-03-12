@@ -21,6 +21,11 @@
 	z-index: 1;
 }
 
+.tile-mid {
+	background-color: $mid-color;
+	z-index: 0;
+}
+
 .tile-bad {
 	background-color: $bad-color;
 	z-index: 1;
@@ -51,17 +56,11 @@
 	margin: 10%;
 
 	@include media('<desktop') {
-		font-size: 3em;
+		font-size: 2em;
 	}
 
 	@include media('>=desktop') {
 		font-size: 5em;
-	}
-}
-
-.grid-6 >.tile-inner {
-	@include media('<desktop') {
-		font-size: 2em;
 	}
 }
 

@@ -16,7 +16,7 @@ const TILE_GOOD_BAD_TIMEOUT_MS: number = 500;
  * @param badCallback - Callback to run when something bad happens to the tile
  * @param isActive - Is this Tile already active?
  */
-export type ActivationCallback = (goodCallback: () => void, badCallback: () => void, isActive: boolean) => boolean;
+export type ActivationCallback = (goodCallback: () => void, midCallback: () => void, badCallback: () => void, isActive: boolean) => boolean;
 
 /**
  * State information for a {@link Tile}
@@ -28,6 +28,8 @@ export enum TileState {
 	Active,
 	/** Something good happened to this tile */
 	Good,
+	/** Somethine not good, but not bad has happened */
+	Mid,
 	/** Something bad happened to this tile */
 	Bad
 }
@@ -73,7 +75,7 @@ export class Tile extends Component<TileProps, TileComponentState> {
 	 */
 	activate = (): void => {
 		let isActive: boolean = this.state.state !== TileState.Inactive;
-		let canActivate = this.props.activationCallback(this.setGood, this.setBad, isActive);
+		let canActivate = this.props.activationCallback(this.setGood, this.setMid, this.setBad, isActive);
 
 		if(canActivate) {
 			this.setState({state: TileState.Active});
@@ -100,6 +102,8 @@ export class Tile extends Component<TileProps, TileComponentState> {
 				return 'tile-active';
 			case TileState.Good:
 				return 'tile-good';
+			case TileState.Mid:
+				return 'tile-mid';
 			case TileState.Bad:
 				return 'tile-bad';
 			default:
@@ -130,6 +134,14 @@ export class Tile extends Component<TileProps, TileComponentState> {
 	 */
 	setInactive = (): void => {
 		this.setState({state: TileState.Inactive});
+	}
+
+	/**
+	 * Sets the Tile's {@link TileState | state} to {@link TileState.Mid | Mid}
+	 */
+	setMid = (): void => {
+		this.setState({state: TileState.Mid});
+		setTimeout(this.setInactive, TILE_GOOD_BAD_TIMEOUT_MS);
 	}
 
 	/**
