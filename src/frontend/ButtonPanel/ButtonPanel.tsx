@@ -31,10 +31,10 @@ export class ButtonPanel extends Component {
 				<IconButton aria-label="Rotate Left" className="icon-button" onClick={() => window.dispatchEvent(new Event('rotate-ccw'))}>
 					<Rotate90DegreesCcwIcon/>
 				</IconButton>
-				<IconButton aria-label="Flip X" className="icon-button">
+				<IconButton aria-label="Flip X" className="icon-button" onClick={() => window.dispatchEvent(new Event('flip-x'))}>
 					<FlipIcon/>
 				</IconButton>
-				<IconButton aria-label="Flip Y" className="icon-button rotate-90">
+				<IconButton aria-label="Flip Y" className="icon-button rotate-90" onClick={() => window.dispatchEvent(new Event('flip-y'))}>
 					<FlipIcon/>
 				</IconButton>
 				<IconButton aria-label="Rotate Right" className="icon-button" onClick={() => window.dispatchEvent(new Event('rotate-cw'))}>

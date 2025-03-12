@@ -27,6 +27,8 @@ export interface GameBoardProps {
  * React state for {@link GameBoard}
  */
 export interface GameBoardState {
+	flipX: boolean,
+	flipY: boolean,
 	rotation: number,
 	/**
 	 * CSS class name to use for styling this particular size of board
@@ -69,6 +71,8 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		// Initialize state
 		this.game = new Game(props.size);
 		this.state = {
+			flipX: false,
+			flipY: false,
 			rotation: 0,
 			sizeClass: `grid-${props.size}`
 		};
@@ -96,6 +100,8 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	componentDidMount = (): void => {
 		window.addEventListener('rotate-ccw', () => this.rotateCcw());
 		window.addEventListener('rotate-cw', () => this.rotateCw());
+		window.addEventListener('flip-x', () => this.flipX());
+		window.addEventListener('flip-y', () => this.flipY());
 	}
 
 	/**
@@ -129,6 +135,22 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 
 			return <Tile letter={letter} activationCallback={tileCallback} key={num}/>
 		});
+	}
+
+	flipX = (): void => {
+		if(this.state.rotation == 90 || this.state.rotation == 270) {
+			this.setState({flipY: !this.state.flipY});
+		} else {
+			this.setState({flipX: !this.state.flipX});
+		}
+	}
+
+	flipY = (): void => {
+		if(this.state.rotation == 90 || this.state.rotation == 270) {
+			this.setState({flipX: !this.state.flipX});
+		} else {
+			this.setState({flipY: !this.state.flipY});
+		}
 	}
 
 	/**
@@ -179,14 +201,14 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 			return true;
 	}
 
-	rotateCcw = () => {
+	rotateCcw = (): void => {
 		let rotation = this.state.rotation;
 		rotation = (rotation + 270) % 360;
 		this.setState({rotation: rotation});
 		console.log(this.state.rotation);
 	}
 
-	rotateCw = () => {
+	rotateCw = (): void => {
 		let rotation = this.state.rotation;
 		rotation = (rotation + 90) % 360;
 		this.setState({rotation: rotation});
@@ -198,7 +220,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	 */
 	render = (): JSX.Element =>
 		<Box className="game-board">
-			<Box className={"game-board-container " + this.state.sizeClass + ` board-rotate-${this.state.rotation}`}>
+			<Box className={`game-board-container board-animate ${this.state.sizeClass} board-rotate-${this.state.rotation} ${this.state.flipX ? "board-flip-x": ""} ${this.state.flipY ? "board-flip-y": ""}`}>
 				{this.createTiles()}
 			</Box>
 		</Box>

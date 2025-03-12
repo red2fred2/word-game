@@ -41,37 +41,90 @@
 	grid-template-columns: repeat(6, 1fr);
 }
 
-
-.board-rotate-0 {
-	rotate: 0deg;
-	transition: rotate 100ms;
-
-	.tile {
-		rotate: 0deg;
-	}
+.board-animate {
+	transition: transform 100ms;
 }
 
-.board-rotate-90 {
-	rotate: 90deg;
-	transition: rotate 100ms;
-
-	.tile {
-		rotate: -90deg;
-	}
+// Rotate 0
+.board-rotate-0:not(.board-flip-x):not(.board-flip-y) {
+	transform: rotate(0deg) scaleX(1) scaleY(1);
+	.tile {transform: rotate(0deg) scaleX(1) scaleY(1)}
 }
-.board-rotate-180 {
-	rotate: 180deg;
-	transition: rotate 100ms;
 
-	.tile {
-		rotate: -180deg;
-	}
+.board-rotate-0:not(.board-flip-x).board-flip-y {
+	transform: rotate(0deg) scaleX(1) scaleY(-1);
+	.tile {transform: rotate(0deg) scaleX(1) scaleY(-1)}
 }
-.board-rotate-270 {
-	rotate: 270deg;
-	transition: rotate 100ms;
 
-	.tile {
-		rotate: -270deg;
-	}
+.board-rotate-0.board-flip-x:not(.board-flip-y) {
+	transform: rotate(0deg) scaleX(-1) scaleY(1);
+	.tile {transform: rotate(0deg) scaleX(-1) scaleY(1)}
+}
+
+.board-rotate-0.board-flip-x.board-flip-y {
+	transform: rotate(0deg) scaleX(-1) scaleY(-1);
+	.tile {transform: rotate(0deg) scaleX(-1) scaleY(-1)}
+}
+
+// Rotate 90
+.board-rotate-90:not(.board-flip-x):not(.board-flip-y) {
+	transform: rotate(90deg) scaleX(1) scaleY(1);
+	.tile {transform: rotate(-90deg) scaleX(1) scaleY(1)}
+}
+
+.board-rotate-90:not(.board-flip-x).board-flip-y {
+	transform: rotate(90deg) scaleX(1) scaleY(-1);
+	.tile {transform: rotate(90deg) scaleX(1) scaleY(-1)}
+}
+
+.board-rotate-90.board-flip-x:not(.board-flip-y) {
+	transform: rotate(90deg) scaleX(-1) scaleY(1);
+	.tile {transform: rotate(90deg) scaleX(-1) scaleY(1)}
+}
+
+.board-rotate-90.board-flip-x.board-flip-y {
+	transform: rotate(90deg) scaleX(-1) scaleY(-1);
+	.tile {transform: rotate(-90deg) scaleX(-1) scaleY(-1)}
+}
+
+// Rotate 180
+.board-rotate-180:not(.board-flip-x):not(.board-flip-y) {
+	transform: rotate(180deg) scaleX(1) scaleY(1);
+	.tile {transform: rotate(-180deg) scaleX(1) scaleY(1)}
+}
+
+.board-rotate-180:not(.board-flip-x).board-flip-y {
+	transform: rotate(180deg) scaleX(1) scaleY(-1);
+	.tile {transform: rotate(-180deg) scaleX(1) scaleY(-1)}
+}
+
+.board-rotate-180.board-flip-x:not(.board-flip-y) {
+	transform: rotate(180deg) scaleX(-1) scaleY(1);
+	.tile {transform: rotate(-180deg) scaleX(-1) scaleY(1)}
+}
+
+.board-rotate-180.board-flip-x.board-flip-y {
+	transform: rotate(180deg) scaleX(-1) scaleY(-1);
+	.tile {transform: rotate(-180deg) scaleX(-1) scaleY(-1)}
+}
+
+// Rotate 270
+.board-rotate-270:not(.board-flip-x):not(.board-flip-y) {
+	transform: rotate(270deg) scaleX(1) scaleY(1);
+	.tile {transform: rotate(-270deg) scaleX(1) scaleY(1)}
+}
+
+.board-rotate-270:not(.board-flip-x).board-flip-y {
+	transform: rotate(270deg) scaleX(1) scaleY(-1);
+	.tile {transform: rotate(270deg) scaleX(1) scaleY(-1)}
+}
+
+.board-rotate-270.board-flip-x:not(.board-flip-y) {
+	transform: rotate(270deg) scaleX(-1) scaleY(1);
+	.tile {transform: rotate(270deg) scaleX(-1) scaleY(1)}
+}
+
+.board-rotate-270.board-flip-x.board-flip-y {
+	transform: rotate(270deg) scaleX(-1) scaleY(-1);
+	.tile {transform: rotate(-270deg) scaleX(-1) scaleY(-1)}
 }
