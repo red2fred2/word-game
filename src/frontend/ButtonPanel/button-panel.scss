@@ -47,11 +47,14 @@
 }
 
 .score {
-	color: white;
 	text-align: center;
 
+	@include media('<desktop') {
+		color: white;
+	}
+
 	@include media('>=desktop') {
-		display: none;
+		color: black;
 	}
 }
 
@@ -64,8 +67,4 @@
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
-
-	@include media('>=desktop') {
-		display: none;
-	}
 }

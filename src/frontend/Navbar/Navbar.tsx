@@ -2,8 +2,6 @@ import { Component, JSX } from 'react';
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 
 import { Login } from './Login/Login';
-import { NavbarScore } from './NavbarScore/NavbarScore';
-import { NavbarTimer } from './NavbarTimer/NavbarTimer';
 
 export class Navbar extends Component {
 	render = (): JSX.Element =>
@@ -12,8 +10,6 @@ export class Navbar extends Component {
 				<Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
 					Word Game
 				</Typography>
-				<NavbarTimer/>
-				<NavbarScore/>
 				<Login/>
 			</Toolbar>
 		</AppBar>

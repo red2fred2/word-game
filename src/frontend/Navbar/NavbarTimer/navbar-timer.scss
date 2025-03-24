@@ -1,9 +1,0 @@
-.navbar-timer {
-	font-size: 1em;
-	padding-left: 5px;
-	padding-right: 5px;
-
-	@include media('<desktop') {
-		display: none;
-	}
-}
