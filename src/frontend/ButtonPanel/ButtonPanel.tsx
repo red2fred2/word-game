@@ -37,8 +37,8 @@ export class ButtonPanel extends Component<ButtonPanelProps, ButtonPanelState> {
 					</Typography>
 				</Card>
 				<Typography className="score" variant="h3" component="div">
-					Score
-					<br/>
+					Score:
+					<br className="desktop-only" />
 					{this.state.score}
 				</Typography>
 			</Box>

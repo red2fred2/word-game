@@ -30,6 +30,12 @@ html, body {
 	}
 }
 
+.desktop-only {
+	@include media('<desktop') {
+		display: none;
+	}
+}
+
 .flex-container {
 	display: flex;
 	flex: 1;
