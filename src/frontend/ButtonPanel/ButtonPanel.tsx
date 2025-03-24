@@ -5,8 +5,29 @@ import Rotate90DegreesCwIcon from '@mui/icons-material/Rotate90DegreesCw';
 import Rotate90DegreesCcwIcon from '@mui/icons-material/Rotate90DegreesCcw';
 
 import './button-panel.scss';
+import { ScoreChange } from '../game/Game';
 
-export class ButtonPanel extends Component {
+export interface ButtonPanelProps {}
+
+export interface ButtonPanelState {
+	score: number
+}
+
+export class ButtonPanel extends Component<ButtonPanelProps, ButtonPanelState> {
+	constructor(props: ButtonPanelProps) {
+		super(props);
+
+		this.state = {
+			score: 0
+		}
+	}
+
+	componentDidMount = (): void => {
+		window.addEventListener('score-change', (event: ScoreChange) =>
+			this.setState({score: event.detail.score})
+		);
+	}
+
 	render = (): JSX.Element =>
 		<Box className="flex-container interaction-buttons">
 			<Box className="flex-container score-timer-container">
@@ -16,7 +37,9 @@ export class ButtonPanel extends Component {
 					</Typography>
 				</Card>
 				<Typography className="score" variant="h3" component="div">
-					Score: 999999
+					Score
+					<br/>
+					{this.state.score}
 				</Typography>
 			</Box>
 			<Box className="game-buttons">
