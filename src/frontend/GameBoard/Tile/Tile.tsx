@@ -74,8 +74,8 @@ export class Tile extends Component<TileProps, TileComponentState> {
 	 * Attempts to activate this tile
 	 */
 	activate = (): void => {
-		let isActive: boolean = this.state.state !== TileState.Inactive;
-		let canActivate = this.props.activationCallback(this.setGood, this.setMid, this.setBad, isActive);
+		const isActive: boolean = this.state.state !== TileState.Inactive;
+		const canActivate = this.props.activationCallback(this.setGood, this.setMid, this.setBad, isActive);
 
 		if(canActivate) {
 			this.setState({state: TileState.Active});

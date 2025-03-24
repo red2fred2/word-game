@@ -60,7 +60,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	 */
 	constructor(props: GameBoardProps) {
 		// Error checking
-		let badSize = props.size < 3 ||
+		const badSize = props.size < 3 ||
 			props.size > 6 ||
 			props.size % 1 !== 0
 		if(badSize) throw new Error('Incorrect size prop given to GameBoard');
@@ -92,9 +92,9 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 			return true;
 		}
 
-		let [lastRow, lastCol] = this.lastActivatedTile.getElse(()=>{})!;
-		let rowGood = Math.abs(row - lastRow) <= 1;
-		let colGood = Math.abs(col - lastCol) <= 1;
+		const [lastRow, lastCol] = this.lastActivatedTile.getElse(()=>{})!;
+		const rowGood = Math.abs(row - lastRow) <= 1;
+		const colGood = Math.abs(col - lastCol) <= 1;
 
 		return rowGood && colGood;
 	}
@@ -126,15 +126,15 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	 * @returns an array of {@link Tile | Tiles}
 	 */
 	createTiles = (): JSX.Element[] => {
-		let totalTiles: number = this.props.size * this.props.size;
-		let tileNumbers: number[] = Array.from(Array(totalTiles).keys());
+		const totalTiles: number = this.props.size * this.props.size;
+		const tileNumbers: number[] = Array.from(Array(totalTiles).keys());
 
 		// Create array
 		return tileNumbers.map(num => {
-			let row: number = num % this.props.size;
-			let col: number = Math.floor(num / this.props.size);
-			let letter: string = this.game.getLetter(row, col);
-			let tileCallback: ActivationCallback = this.getTileActivation(row, col, letter);
+			const row: number = num % this.props.size;
+			const col: number = Math.floor(num / this.props.size);
+			const letter: string = this.game.getLetter(row, col);
+			const tileCallback: ActivationCallback = this.getTileActivation(row, col, letter);
 
 			return <Tile letter={letter} activationCallback={tileCallback} key={num}/>
 		});
