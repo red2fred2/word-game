@@ -20,10 +20,10 @@ export class ButtonPanel extends Component {
 				</Typography>
 			</Box>
 			<Box className="game-buttons">
-				<Button aria-label="Hint" color="secondary" size="large" variant="contained">
+				<Button aria-label="Hint" color="primary" size="large" variant="contained">
 					Hint
 				</Button>
-				<Button aria-label="New Game" color="secondary" size="large" variant="contained">
+				<Button aria-label="New Game" color="primary" size="large" variant="contained">
 					New Game
 				</Button>
 			</Box>

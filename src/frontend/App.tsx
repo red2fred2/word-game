@@ -11,7 +11,7 @@ import './style.scss';
 const theme: Theme = createTheme({
 	palette: {
 	  primary: {
-		main: '#3e9',
+		main: '#dc3',
 	  },
 	  secondary: {
 		main: '#b92e8c',
