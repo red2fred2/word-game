@@ -212,14 +212,12 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		let rotation = this.state.rotation;
 		rotation = (rotation + 270) % 360;
 		this.setState({rotation: rotation});
-		console.log(this.state.rotation);
 	}
 
 	rotateCw = (): void => {
 		let rotation = this.state.rotation;
 		rotation = (rotation + 90) % 360;
 		this.setState({rotation: rotation});
-		console.log(this.state.rotation);
 	}
 
 	/**
