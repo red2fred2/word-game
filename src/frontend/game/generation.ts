@@ -26,7 +26,7 @@ export function generateLetters(options: GenerationOptions): string[][] {
 
 /**
  * Gets the relative frequency of each letter in the dictionary
- * @remark typescript gets mad about importing the dictionary, so this is going to
+ * @remarks typescript gets mad about importing the dictionary, so this is going to
  * be commented out when not in use
  */
 // function getWordlistPDF(): void {
