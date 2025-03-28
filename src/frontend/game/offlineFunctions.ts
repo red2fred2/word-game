@@ -4,6 +4,17 @@
  */
 
 import dictionary from './dictionary.json';
+import { DictionaryTree } from './DictionaryTree';
+
+/**
+ * Generates a dictionary tree from the dictionary.json file
+ */
+export function generateDictionaryTree(): void {
+	let tree = new DictionaryTree();
+	(dictionary as string[]).forEach(word => tree.add(word));
+
+	console.log(JSON.stringify(tree.save()));
+}
 
 /**
  * Gets the relative frequency of each letter in the dictionary
