@@ -98,6 +98,18 @@ function findNeighbors(pos: Position, board: string[][]): Position[]  {
 }
 
 /**
+ * Removes B {@link Position | Positions} from A {@link Position | Positions}
+ * @returns A - B
+ */
+function remove(a: Position[], b: Position[]): Position[] {
+	return a.filter(pa =>
+		!b.some(pb =>
+			pa.x === pb.x && pa.y === pb.y
+		)
+	);
+}
+
+/**
  * Finds all possible solutions to a board
  * @remarks This is a very expensive operation, minimize its use.
  *
