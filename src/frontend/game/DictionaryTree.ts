@@ -46,6 +46,10 @@ export interface DictionaryTreeData {
 export class DictionaryTree {
 	rootNode: DictionaryNode;
 
+	/**
+	 * Creates a new DictionaryTree
+	 * @param data Optional data to load from file
+	 */
 	constructor(data?: DictionaryTreeData) {
 		if(typeof(data) !== 'undefined') {
 			this.rootNode = new DictionaryNode(Some(data));
