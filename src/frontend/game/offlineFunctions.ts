@@ -7,7 +7,7 @@ import dictionary from './dictionary.json';
 import { DictionaryTree } from './DictionaryTree';
 
 /**
- * Generates a dictionary tree from the dictionary.json file
+ * Generates a dictionary tree for the dictionary.json file
  */
 export function generateDictionaryTree(): void {
 	let tree = new DictionaryTree();
