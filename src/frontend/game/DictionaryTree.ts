@@ -3,8 +3,6 @@
  * @packageDocumentation
  */
 
-import { None, Option, Some } from "../Option";
-
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 /**
@@ -52,9 +50,9 @@ export class DictionaryTree {
 	 */
 	constructor(data?: DictionaryTreeData) {
 		if(typeof(data) !== 'undefined') {
-			this.rootNode = new DictionaryNode(Some(data));
+			this.rootNode = new DictionaryNode(data);
 		} else {
-			this.rootNode = new DictionaryNode(None<DictionaryTreeData>());
+			this.rootNode = new DictionaryNode(null);
 		}
 	}
 
@@ -84,42 +82,42 @@ export class DictionaryTree {
  */
 class DictionaryNode {
 	isWord: boolean
-	children: Option<DictionaryNode>[]
+	children: (DictionaryNode | null)[]
 
-	constructor(data: Option<DictionaryTreeData>) {
-		if(data.isNone()) {
+	constructor(data: DictionaryTreeData | null) {
+		if(data === null) {
 			this.isWord = false;
-			this.children = new Array(26).fill(None<DictionaryNode>());
+			this.children = new Array(26).fill(null);
 		} else {
-			const dat = data.value!;
+			const dat = data!;
 			this.isWord = !!dat?._;
 
-			const a = typeof(dat.a) !== 'undefined' ? Some(new DictionaryNode(Some(dat.a!))) : None<DictionaryNode>();
-			const b = typeof(dat.b) !== 'undefined' ? Some(new DictionaryNode(Some(dat.b!))) : None<DictionaryNode>();
-			const c = typeof(dat.c) !== 'undefined' ? Some(new DictionaryNode(Some(dat.c!))) : None<DictionaryNode>();
-			const d = typeof(dat.d) !== 'undefined' ? Some(new DictionaryNode(Some(dat.d!))) : None<DictionaryNode>();
-			const e = typeof(dat.e) !== 'undefined' ? Some(new DictionaryNode(Some(dat.e!))) : None<DictionaryNode>();
-			const f = typeof(dat.f) !== 'undefined' ? Some(new DictionaryNode(Some(dat.f!))) : None<DictionaryNode>();
-			const g = typeof(dat.g) !== 'undefined' ? Some(new DictionaryNode(Some(dat.g!))) : None<DictionaryNode>();
-			const h = typeof(dat.h) !== 'undefined' ? Some(new DictionaryNode(Some(dat.h!))) : None<DictionaryNode>();
-			const i = typeof(dat.i) !== 'undefined' ? Some(new DictionaryNode(Some(dat.i!))) : None<DictionaryNode>();
-			const j = typeof(dat.j) !== 'undefined' ? Some(new DictionaryNode(Some(dat.j!))) : None<DictionaryNode>();
-			const k = typeof(dat.k) !== 'undefined' ? Some(new DictionaryNode(Some(dat.k!))) : None<DictionaryNode>();
-			const l = typeof(dat.l) !== 'undefined' ? Some(new DictionaryNode(Some(dat.l!))) : None<DictionaryNode>();
-			const m = typeof(dat.m) !== 'undefined' ? Some(new DictionaryNode(Some(dat.m!))) : None<DictionaryNode>();
-			const n = typeof(dat.n) !== 'undefined' ? Some(new DictionaryNode(Some(dat.n!))) : None<DictionaryNode>();
-			const o = typeof(dat.o) !== 'undefined' ? Some(new DictionaryNode(Some(dat.o!))) : None<DictionaryNode>();
-			const p = typeof(dat.p) !== 'undefined' ? Some(new DictionaryNode(Some(dat.p!))) : None<DictionaryNode>();
-			const q = typeof(dat.q) !== 'undefined' ? Some(new DictionaryNode(Some(dat.q!))) : None<DictionaryNode>();
-			const r = typeof(dat.r) !== 'undefined' ? Some(new DictionaryNode(Some(dat.r!))) : None<DictionaryNode>();
-			const s = typeof(dat.s) !== 'undefined' ? Some(new DictionaryNode(Some(dat.s!))) : None<DictionaryNode>();
-			const t = typeof(dat.t) !== 'undefined' ? Some(new DictionaryNode(Some(dat.t!))) : None<DictionaryNode>();
-			const u = typeof(dat.u) !== 'undefined' ? Some(new DictionaryNode(Some(dat.u!))) : None<DictionaryNode>();
-			const v = typeof(dat.v) !== 'undefined' ? Some(new DictionaryNode(Some(dat.v!))) : None<DictionaryNode>();
-			const w = typeof(dat.w) !== 'undefined' ? Some(new DictionaryNode(Some(dat.w!))) : None<DictionaryNode>();
-			const x = typeof(dat.x) !== 'undefined' ? Some(new DictionaryNode(Some(dat.x!))) : None<DictionaryNode>();
-			const y = typeof(dat.y) !== 'undefined' ? Some(new DictionaryNode(Some(dat.y!))) : None<DictionaryNode>();
-			const z = typeof(dat.z) !== 'undefined' ? Some(new DictionaryNode(Some(dat.z!))) : None<DictionaryNode>();
+			const a = typeof(dat.a) !== 'undefined' ? new DictionaryNode(dat.a!) : null;
+			const b = typeof(dat.b) !== 'undefined' ? new DictionaryNode(dat.b!) : null;
+			const c = typeof(dat.c) !== 'undefined' ? new DictionaryNode(dat.c!) : null;
+			const d = typeof(dat.d) !== 'undefined' ? new DictionaryNode(dat.d!) : null;
+			const e = typeof(dat.e) !== 'undefined' ? new DictionaryNode(dat.e!) : null;
+			const f = typeof(dat.f) !== 'undefined' ? new DictionaryNode(dat.f!) : null;
+			const g = typeof(dat.g) !== 'undefined' ? new DictionaryNode(dat.g!) : null;
+			const h = typeof(dat.h) !== 'undefined' ? new DictionaryNode(dat.h!) : null;
+			const i = typeof(dat.i) !== 'undefined' ? new DictionaryNode(dat.i!) : null;
+			const j = typeof(dat.j) !== 'undefined' ? new DictionaryNode(dat.j!) : null;
+			const k = typeof(dat.k) !== 'undefined' ? new DictionaryNode(dat.k!) : null;
+			const l = typeof(dat.l) !== 'undefined' ? new DictionaryNode(dat.l!) : null;
+			const m = typeof(dat.m) !== 'undefined' ? new DictionaryNode(dat.m!) : null;
+			const n = typeof(dat.n) !== 'undefined' ? new DictionaryNode(dat.n!) : null;
+			const o = typeof(dat.o) !== 'undefined' ? new DictionaryNode(dat.o!) : null;
+			const p = typeof(dat.p) !== 'undefined' ? new DictionaryNode(dat.p!) : null;
+			const q = typeof(dat.q) !== 'undefined' ? new DictionaryNode(dat.q!) : null;
+			const r = typeof(dat.r) !== 'undefined' ? new DictionaryNode(dat.r!) : null;
+			const s = typeof(dat.s) !== 'undefined' ? new DictionaryNode(dat.s!) : null;
+			const t = typeof(dat.t) !== 'undefined' ? new DictionaryNode(dat.t!) : null;
+			const u = typeof(dat.u) !== 'undefined' ? new DictionaryNode(dat.u!) : null;
+			const v = typeof(dat.v) !== 'undefined' ? new DictionaryNode(dat.v!) : null;
+			const w = typeof(dat.w) !== 'undefined' ? new DictionaryNode(dat.w!) : null;
+			const x = typeof(dat.x) !== 'undefined' ? new DictionaryNode(dat.x!) : null;
+			const y = typeof(dat.y) !== 'undefined' ? new DictionaryNode(dat.y!) : null;
+			const z = typeof(dat.z) !== 'undefined' ? new DictionaryNode(dat.z!) : null;
 
 			this.children = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z];
 		}
@@ -135,11 +133,11 @@ class DictionaryNode {
 		const firstLetterIndex: number = LETTERS.findIndex(l => l == firstLetter);
 
 		let child: DictionaryNode;
-		let childNode: Option<DictionaryNode> = this.children[firstLetterIndex];
-		if(childNode.isNone()) {
-			child = new DictionaryNode(None<DictionaryTreeData>());
+		let childNode: DictionaryNode | null = this.children[firstLetterIndex];
+		if(childNode === null) {
+			child = new DictionaryNode(null);
 		} else {
-			child = childNode.value!;
+			child = childNode!;
 		}
 
 		if (nextPart.length === 0) {
@@ -148,7 +146,7 @@ class DictionaryNode {
 			child.add(nextPart);
 		}
 
-		this.children[firstLetterIndex] = Some(child);
+		this.children[firstLetterIndex] = child;
 	}
 
 	/**
@@ -162,14 +160,14 @@ class DictionaryNode {
 
 		let child = this.children[firstLetterIndex];
 
-		if(child.isNone()) {
+		if(child === null) {
 			return false;
 		}
 
 		if(nextPart.length === 0) {
-			return child.value?.isWord!;
+			return child?.isWord!;
 		} else {
-			return child.value?.includes(nextPart)!;
+			return child?.includes(nextPart)!;
 		}
 	}
 
@@ -180,32 +178,32 @@ class DictionaryNode {
 		let data: DictionaryTreeData = {};
 		if(this.isWord) data._ = 1;
 
-		if(this.children[0].isSome()) data.a = this.children[0].value!.save();
-		if(this.children[1].isSome()) data.b = this.children[1].value!.save();
-		if(this.children[2].isSome()) data.c = this.children[2].value!.save();
-		if(this.children[3].isSome()) data.d = this.children[3].value!.save();
-		if(this.children[4].isSome()) data.e = this.children[4].value!.save();
-		if(this.children[5].isSome()) data.f = this.children[5].value!.save();
-		if(this.children[6].isSome()) data.g = this.children[6].value!.save();
-		if(this.children[7].isSome()) data.h = this.children[7].value!.save();
-		if(this.children[8].isSome()) data.i = this.children[8].value!.save();
-		if(this.children[9].isSome()) data.j = this.children[9].value!.save();
-		if(this.children[10].isSome()) data.k = this.children[10].value!.save();
-		if(this.children[11].isSome()) data.l = this.children[11].value!.save();
-		if(this.children[12].isSome()) data.m = this.children[12].value!.save();
-		if(this.children[13].isSome()) data.n = this.children[13].value!.save();
-		if(this.children[14].isSome()) data.o = this.children[14].value!.save();
-		if(this.children[15].isSome()) data.p = this.children[15].value!.save();
-		if(this.children[16].isSome()) data.q = this.children[16].value!.save();
-		if(this.children[17].isSome()) data.r = this.children[17].value!.save();
-		if(this.children[18].isSome()) data.s = this.children[18].value!.save();
-		if(this.children[19].isSome()) data.t = this.children[19].value!.save();
-		if(this.children[20].isSome()) data.u = this.children[20].value!.save();
-		if(this.children[21].isSome()) data.v = this.children[21].value!.save();
-		if(this.children[22].isSome()) data.w = this.children[22].value!.save();
-		if(this.children[23].isSome()) data.x = this.children[23].value!.save();
-		if(this.children[24].isSome()) data.y = this.children[24].value!.save();
-		if(this.children[25].isSome()) data.z = this.children[25].value!.save();
+		if(this.children[0] !== null) data.a = this.children[0]!.save();
+		if(this.children[1] !== null) data.b = this.children[1]!.save();
+		if(this.children[2] !== null) data.c = this.children[2]!.save();
+		if(this.children[3] !== null) data.d = this.children[3]!.save();
+		if(this.children[4] !== null) data.e = this.children[4]!.save();
+		if(this.children[5] !== null) data.f = this.children[5]!.save();
+		if(this.children[6] !== null) data.g = this.children[6]!.save();
+		if(this.children[7] !== null) data.h = this.children[7]!.save();
+		if(this.children[8] !== null) data.i = this.children[8]!.save();
+		if(this.children[9] !== null) data.j = this.children[9]!.save();
+		if(this.children[10] !== null) data.k = this.children[10]!.save();
+		if(this.children[11] !== null) data.l = this.children[11]!.save();
+		if(this.children[12] !== null) data.m = this.children[12]!.save();
+		if(this.children[13] !== null) data.n = this.children[13]!.save();
+		if(this.children[14] !== null) data.o = this.children[14]!.save();
+		if(this.children[15] !== null) data.p = this.children[15]!.save();
+		if(this.children[16] !== null) data.q = this.children[16]!.save();
+		if(this.children[17] !== null) data.r = this.children[17]!.save();
+		if(this.children[18] !== null) data.s = this.children[18]!.save();
+		if(this.children[19] !== null) data.t = this.children[19]!.save();
+		if(this.children[20] !== null) data.u = this.children[20]!.save();
+		if(this.children[21] !== null) data.v = this.children[21]!.save();
+		if(this.children[22] !== null) data.w = this.children[22]!.save();
+		if(this.children[23] !== null) data.x = this.children[23]!.save();
+		if(this.children[24] !== null) data.y = this.children[24]!.save();
+		if(this.children[25] !== null) data.z = this.children[25]!.save();
 
 		return data;
 	}
