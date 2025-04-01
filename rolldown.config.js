@@ -20,5 +20,8 @@ export default defineConfig({
 			outputStyle: 'compressed',
 			silenceDeprecations: ['legacy-js-api']
 		})
-	]
+	],
+	define: {
+		'process.env.NODE_ENV': "'production'"
+	}
 });
