@@ -25,7 +25,7 @@ export class App extends Component {
 			<ThemeProvider theme={theme}>
 				<Navbar/>
 				<div className="body-container flex-container">
-					<GameBoard size={3}/>
+					<GameBoard size={5}/>
 					<ButtonPanel/>
 				</div>
 			</ThemeProvider>
