@@ -3,9 +3,7 @@
  * @packageDocumentation
  */
 
-import wasmInit, {InitOutput, greet} from 'word-game';
-
-import { generateLetters, GenerationOptions } from './generation';
+import wasmInit, {InitOutput, generate_letters} from 'word-game';
 
 import dictionary from './dictionary.json';
 
@@ -30,6 +28,8 @@ export interface ScoreChange extends Event {
 export class Game {
 	/** Letters on the game board */
 	letters: string[][];
+	/** Is true when webassembly has loaded and everything has generated */
+	ready: boolean;
 	/** Current game score */
 	score: number;
 	/** Size of the board, size X size */
@@ -37,22 +37,22 @@ export class Game {
 	/** Words that have been found */
 	wordsFound: string[];
 
-	constructor(size: number) {
+	constructor(readyCallback: Function, size: number) {
 		this.score = 0;
 		this.size = size;
 		this.wordsFound = [];
-
-		const generationOptions: GenerationOptions = {
-			boardSize: size
-		};
-		this.letters = generateLetters(generationOptions);
-
-		this.wasmInit();
+		this.ready = false;
+		this.init(size, readyCallback);
 	}
 
-	wasmInit = async () => {
+	/**
+	 * Initialize the asynchronous stuff
+	 */
+	init = async (size: number, readyCallback: Function) => {
 		const wasm: InitOutput = await wasmInit('word_game_bg.wasm');
-		greet('string');
+		this.letters = generate_letters(size);
+		this.ready = true;
+		readyCallback();
 	}
 
 	/**

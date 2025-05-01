@@ -29,6 +29,7 @@ export interface GameBoardProps {
 export interface GameBoardState {
 	flipX: boolean,
 	flipY: boolean,
+	loading: boolean,
 	rotation: number,
 	/**
 	 * CSS class name to use for styling this particular size of board
@@ -71,10 +72,11 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		this.clearActiveTiles();
 
 		// Initialize state
-		this.game = new Game(props.size);
+		this.game = new Game(this.readyCallback, props.size);
 		this.state = {
 			flipX: false,
 			flipY: false,
+			loading: true,
 			rotation: 0,
 			sizeClass: `grid-${props.size}`
 		};
@@ -208,6 +210,10 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 			return true;
 	}
 
+	readyCallback = (): void => {
+		this.setState({loading: false});
+	}
+
 	rotateCcw = (): void => {
 		let rotation = this.state.rotation;
 		rotation = (rotation + 270) % 360;
@@ -224,11 +230,14 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	 * Renders the react component
 	 */
 	render = (): JSX.Element =>
+		this.game.ready ?
 		<Box className="game-board">
 			<Box className={`game-board-container board-animate ${this.state.sizeClass} board-rotate-${this.state.rotation} ${this.state.flipX ? "board-flip-x": ""} ${this.state.flipY ? "board-flip-y": ""}`}>
 				{this.createTiles()}
 			</Box>
 		</Box>
+		:
+		<Box className="game-board"></Box>
 }
 
 /**
