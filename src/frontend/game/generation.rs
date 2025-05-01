@@ -2,44 +2,11 @@ use js_sys::{ Array, JsString };
 use rand::random;
 use wasm_bindgen::prelude::*;
 
-use super::{const_fns::normalize_array, dictionary::DICTIONARY};
+use super::{const_fns::{count_letters, normalize_array}, dictionary::DICTIONARY};
 
 const LETTERS: [char; 26] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 #[allow(long_running_const_eval)]
 const PDF: [f32; 26] = get_word_list_pdf();
-
-/// Counts how many of each letter exists in the dictionary
-const fn count_letters() -> [u32; 26] {
-	let length = DICTIONARY.len();
-	let mut counts = [0; 26];
-	let mut i = 0;
-
-	while i < length {
-		let mut j = 0;
-		let word = DICTIONARY[i];
-		let word = word.as_bytes();
-		let word_length = word.len();
-
-		while j < word_length {
-			let code = word[j];
-			let index;
-			if code > 64 && code < 91 {
-				index = code - 65;
-			} else if code > 96 && code < 123 {
-				index = code - 97;
-			} else {
-				panic!();
-			}
-
-			counts[index as usize] += 1;
-			j += 1;
-		}
-
-		i += 1;
-	}
-
-	return counts;
-}
 
 #[wasm_bindgen]
 pub fn generate_letters(size: u8) -> Array {
@@ -64,7 +31,7 @@ pub fn generate_letters(size: u8) -> Array {
 /// Gets the relative frequency of each letter in the dictionary
 /// Will not work the way you think if not every letter shows up
 const fn get_word_list_pdf() -> [f32; 26] {
-	let counts = count_letters();
+	let counts = count_letters(&DICTIONARY);
 	return normalize_array(&counts);
 }
 
