@@ -54,8 +54,6 @@ fn get_word_list_pdf() -> Vec<f32> {
 	return normalize_array(&values).to_vec();
 }
 
-
-
 /// Gets a random item from an array, using the probability distribution function
 /// array for the probability of each item.
 ///
