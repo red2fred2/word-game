@@ -4,12 +4,13 @@ use js_sys::{ Array, JsString };
 use rand::random;
 use wasm_bindgen::prelude::*;
 
-use super::dictionary::DICTIONARY;
+use super::{const_fns::sum, dictionary::DICTIONARY};
 
 const LETTERS: [char; 26] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 #[wasm_bindgen]
 pub fn generate_letters(size: u8) -> Array {
+	wasm_log::init(wasm_log::Config::default());
 	let pdf = get_word_list_pdf();
 	let mut letters = Vec::new();
 
@@ -31,7 +32,7 @@ pub fn generate_letters(size: u8) -> Array {
 /// Will not work the way you think if not every letter shows up
 fn get_word_list_pdf() -> Vec<f32> {
 	// Count up the letters
-	let mut counts = HashMap::new();
+	let mut counts: HashMap<char, u32> = HashMap::new();
 
 	for word in DICTIONARY {
 		let w = word.to_uppercase();
@@ -42,23 +43,22 @@ fn get_word_list_pdf() -> Vec<f32> {
 	}
 
 	// Plonk them into an array in order
-	let mut values = Vec::new();
+	let mut values = [0; 26];
 
-	for letter in LETTERS {
-		let value = counts.get(&letter).unwrap();
-		values.push(value);
+	for (i, letter) in LETTERS.iter().enumerate() {
+		let value = *counts.get(&letter).unwrap();
+		values[i] = value;
 	}
 
 	// Normalize the data
-	return normalize_array(values);
+	return normalize_array(&values);
 }
 
-fn normalize_array(array: Vec<&u32>) -> Vec<f32> {
-	// Normalization
-	let sum = array.iter().fold(0, |a, b| a + *b);
+fn normalize_array<const N: usize>(array: &[u32; N]) -> Vec<f32> {
+	let sum = sum(array);
 	let scalar = 1.0 / (sum as f32);
 
-	return array.iter().map(|n| **n as f32 * scalar).collect();
+	return array.iter().map(|n| *n as f32 * scalar).collect();
 }
 
 /// Gets a random item from an array, using the probability distribution function
