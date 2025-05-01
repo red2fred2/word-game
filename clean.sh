@@ -1,7 +1,8 @@
 #! /bin/sh
 
-# Run gulp clean
-node node_modules/gulp-cli/bin/gulp.js clean
-
-# Delete node modules
+rm -rf .rollup.cache/
+rm -rf docs/
 rm -rf node_modules/
+rm -rf output/
+
+rm tsconfig.tsbuildinfo

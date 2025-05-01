@@ -1,13 +1,6 @@
-import { deleteAsync } from 'del';
 import { dest, src } from 'gulp';
 import minify from 'gulp-minify';
 import ts from 'gulp-typescript';
-
-// Clean generated artifacts
-export function clean(cb) {
-	deleteAsync(['output']);
-	cb();
-}
 
 // Build typescript
 const tsProject = ts.createProject('tsconfig.json');
