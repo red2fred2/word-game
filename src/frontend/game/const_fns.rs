@@ -5,9 +5,7 @@ pub const fn normalize_array<const N: usize>(array: &[u32; N]) -> [f32; N] {
 	let mut i = 0;
 	let mut normalized = [0.0; N];
 
-	loop {
-		if i == N {break;}
-
+	while i < N {
 		let value = array[i] as f32;
 		let scaled = value * scalar;
 		normalized[i] = scaled;
@@ -22,9 +20,7 @@ pub const fn sum_u32<const N: usize>(array: &[u32; N]) -> u32 {
 	let mut i = 0;
 	let mut sum = 0;
 
-	loop {
-		if i == N {break;}
-
+	while i < N {
 		let value = array[i];
 		sum += value;
 		i += 1;

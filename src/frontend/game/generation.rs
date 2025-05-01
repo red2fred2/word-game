@@ -5,6 +5,8 @@ use wasm_bindgen::prelude::*;
 use super::{const_fns::normalize_array, dictionary::DICTIONARY};
 
 const LETTERS: [char; 26] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+#[allow(long_running_const_eval)]
+const PDF: [f32; 26] = get_word_list_pdf();
 
 /// Counts how many of each letter exists in the dictionary
 const fn count_letters() -> [u32; 26] {
@@ -12,17 +14,14 @@ const fn count_letters() -> [u32; 26] {
 	let mut counts = [0; 26];
 	let mut i = 0;
 
-	loop {
-		if i == length {break;}
+	while i < length {
 		let mut j = 0;
 		let word = DICTIONARY[i];
-		let word = word.as_ascii().unwrap();
+		let word = word.as_bytes();
 		let word_length = word.len();
 
-		loop {
-			if j == word_length {break;}
-
-			let code = word[j].to_u8();
+		while j < word_length {
+			let code = word[j];
 			let index;
 			if code > 64 && code < 91 {
 				index = code - 65;
@@ -45,7 +44,7 @@ const fn count_letters() -> [u32; 26] {
 #[wasm_bindgen]
 pub fn generate_letters(size: u8) -> Array {
 	wasm_log::init(wasm_log::Config::default());
-	let pdf = get_word_list_pdf().to_vec();
+	let pdf = PDF.to_vec();
 	let mut letters = Vec::new();
 
 	for _ in 0..size {
