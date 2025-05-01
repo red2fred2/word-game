@@ -4,7 +4,7 @@ use js_sys::{ Array, JsString };
 use rand::random;
 use wasm_bindgen::prelude::*;
 
-use super::{const_fns::sum, dictionary::DICTIONARY};
+use super::{const_fns::normalize_array, dictionary::DICTIONARY};
 
 const LETTERS: [char; 26] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
@@ -51,15 +51,10 @@ fn get_word_list_pdf() -> Vec<f32> {
 	}
 
 	// Normalize the data
-	return normalize_array(&values);
+	return normalize_array(&values).to_vec();
 }
 
-fn normalize_array<const N: usize>(array: &[u32; N]) -> Vec<f32> {
-	let sum = sum(array);
-	let scalar = 1.0 / (sum as f32);
 
-	return array.iter().map(|n| *n as f32 * scalar).collect();
-}
 
 /// Gets a random item from an array, using the probability distribution function
 /// array for the probability of each item.
