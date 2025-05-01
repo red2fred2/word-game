@@ -3,6 +3,8 @@
  * @packageDocumentation
  */
 
+import wasmInit, {InitOutput, greet} from 'word-game';
+
 import { generateLetters, GenerationOptions } from './generation';
 
 import dictionary from './dictionary.json';
@@ -44,6 +46,13 @@ export class Game {
 			boardSize: size
 		};
 		this.letters = generateLetters(generationOptions);
+
+		this.wasmInit();
+	}
+
+	wasmInit = async () => {
+		const wasm: InitOutput = await wasmInit('word_game_bg.wasm');
+		greet('string');
 	}
 
 	/**
