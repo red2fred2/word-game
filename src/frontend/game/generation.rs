@@ -36,29 +36,10 @@ fn get_word_list_pdf() -> Vec<f32> {
 	return normalize_array(values);
 }
 
-/// Normalizes an array, but skews it slightly to account for floating point error
 fn normalize_array(array: Vec<&u32>) -> Vec<f32> {
 	// Normalization
 	let sum = array.iter().fold(0, |a, b| a + *b);
 	let scalar = 1.0 / (sum as f32);
-	let mut normalized: Vec<f32> = array.iter().map(|n| **n as f32 * scalar).collect();
 
-	// Skew it to make it sum to 1.0
-	let sum = normalized.iter().fold(0.0, |a, b| a + *b);
-	let error = 1.0 - sum;
-
-	// Find the highest value to skew
-	let mut highest_index = 0;
-	let mut highest_value = 0.0;
-
-	for (index, value) in normalized.iter().enumerate() {
-		if *value > highest_value {
-			highest_value = *value;
-			highest_index = index;
-		}
-	}
-
-	normalized[highest_index] += error;
-
-	return normalized;
+	return array.iter().map(|n| **n as f32 * scalar).collect();
 }
