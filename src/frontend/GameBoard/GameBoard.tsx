@@ -6,11 +6,12 @@
 import { Component, JSX } from 'react';
 import { Box } from '@mui/material';
 
-import { WordCheck, Game } from '../game/Game';
+import { Game } from '../game/Game';
+import { None, Option } from '../Option';
 import { ActivationCallback, Tile } from './Tile/Tile';
+import { WordCheck } from 'word-game';
 
 import './game-board.scss';
-import { None, Option } from '../Option';
 
 /**
  * React props for {@link GameBoard}

@@ -3,15 +3,9 @@
  * @packageDocumentation
  */
 
-import wasmInit, {find_word_score, generate_letters, InitOutput} from 'word-game';
+import wasmInit, {find_word_score, generate_letters, InitOutput, WordCheck} from 'word-game';
 
 import dictionary from './dictionary.json';
-
-export enum WordCheck {
-	AlreadyFound,
-	Found,
-	NotFound
-}
 
 /** Information */
 export interface ScoreChange extends Event {
@@ -86,9 +80,6 @@ export class Game {
 		}
 	}
 
-	/** Finds the score value of the current word
-	 * @param word - Word to score
-	 */
 	findWordScore = (word: string): number => {
 		return find_word_score(word);
 	}
