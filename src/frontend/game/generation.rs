@@ -28,6 +28,17 @@ pub fn generate_letters(size: u8) -> Array {
 	return vecvec_to_js_arrayarray(&letters);
 }
 
+pub const fn get_letter_values() -> [u16; 26] {
+	let mut values = [0; 26];
+	let mut i = 0;
+	while i < 26 {
+		values[i] = (1.0 / PDF[i]) as u16;
+		i += 1;
+	}
+
+	return values;
+}
+
 /// Gets the relative frequency of each letter in the dictionary
 /// Will not work the way you think if not every letter shows up
 const fn get_word_list_pdf() -> [f32; 26] {
