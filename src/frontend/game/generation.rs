@@ -1,6 +1,4 @@
-use js_sys::{ Array, JsString };
 use rand::random;
-use wasm_bindgen::prelude::*;
 
 use super::{const_fns::{count_letters, normalize_array}, dictionary::DICTIONARY};
 
@@ -8,8 +6,7 @@ const LETTERS: [char; 26] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', '
 #[allow(long_running_const_eval)]
 const PDF: [f32; 26] = get_word_list_pdf();
 
-#[wasm_bindgen]
-pub fn generate_letters(size: u8) -> Array {
+pub fn generate_letters(size: u8) -> Vec<Vec<String>> {
 	let pdf = PDF.to_vec();
 	let mut letters = Vec::new();
 
@@ -24,7 +21,7 @@ pub fn generate_letters(size: u8) -> Array {
 		letters.push(row);
 	}
 
-	return vecvec_to_js_arrayarray(&letters);
+	return letters;
 }
 
 pub const fn get_letter_values() -> [u16; 26] {
@@ -71,21 +68,4 @@ where T: Clone + Copy {
 	}
 
 	return array[index];
-}
-
-fn vecvec_to_js_arrayarray(vec: &Vec<Vec<String>>) -> Array {
-	let array_0 = Array::new();
-	for e_0 in vec {
-		let array_1 = Array::new();
-
-		for e_1 in e_0 {
-			let js_e = JsString::from(e_1.clone());
-
-			array_1.push(&js_e);
-		}
-
-		array_0.push(&array_1);
-	}
-
-	return array_0;
 }

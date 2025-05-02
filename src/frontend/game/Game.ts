@@ -3,7 +3,7 @@
  * @packageDocumentation
  */
 
-import wasmInit, {find_word_score, generate_letters, InitOutput, WordCheck} from 'word-game';
+import wasmInit, {find_word_score, Game, InitOutput, WordCheck} from 'word-game';
 
 import dictionary from './dictionary.json';
 
@@ -17,21 +17,17 @@ export interface ScoreChange extends Event {
 /**
  * Keeps track of game state and information
  */
-export class Game {
-	/** Letters on the game board */
-	letters: string[][];
+export class GameJ {
+	game: Game;
 	/** Is true when webassembly has loaded and everything has generated */
 	ready: boolean;
 	/** Current game score */
 	score: number;
-	/** Size of the board, size X size */
-	size: number;
 	/** Words that have been found */
 	wordsFound: string[];
 
 	constructor(readyCallback: Function, size: number) {
 		this.score = 0;
-		this.size = size;
 		this.wordsFound = [];
 		this.ready = false;
 		this.init(size, readyCallback);
@@ -42,7 +38,7 @@ export class Game {
 	 */
 	init = async (size: number, readyCallback: Function) => {
 		const wasm: InitOutput = await wasmInit('word_game_bg.wasm');
-		this.letters = generate_letters(size);
+		this.game = new Game(size);
 		this.ready = true;
 		readyCallback();
 	}
@@ -86,5 +82,5 @@ export class Game {
 
 	/** Gets a letter on the game board */
 	getLetter = (row: number, col: number): string =>
-		this.letters[row][col];
+		this.game.get_letter(row, col);
 }

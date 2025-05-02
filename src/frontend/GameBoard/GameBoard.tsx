@@ -6,7 +6,7 @@
 import { Component, JSX } from 'react';
 import { Box } from '@mui/material';
 
-import { Game } from '../game/Game';
+import { GameJ } from '../game/Game';
 import { None, Option } from '../Option';
 import { ActivationCallback, Tile } from './Tile/Tile';
 import { WordCheck } from 'word-game';
@@ -46,7 +46,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	/** Bad callbacks for the currently active {@link Tile | Tiles} on the board */
 	badCallbacks: Function[];
 	/** The game being played on this board */
-	game: Game;
+	game: GameJ;
 	/** Good callbacks for the currently active {@link Tile | Tiles} on the board */
 	goodCallbacks: Function[];
 	/** The last {@link Tile | Tiles} that was activated */
@@ -73,7 +73,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		this.clearActiveTiles();
 
 		// Initialize state
-		this.game = new Game(this.readyCallback, props.size);
+		this.game = new GameJ(this.readyCallback, props.size);
 		this.state = {
 			flipX: false,
 			flipY: false,
