@@ -10,7 +10,6 @@ const PDF: [f32; 26] = get_word_list_pdf();
 
 #[wasm_bindgen]
 pub fn generate_letters(size: u8) -> Array {
-	wasm_log::init(wasm_log::Config::default());
 	let pdf = PDF.to_vec();
 	let mut letters = Vec::new();
 
