@@ -5,8 +5,6 @@
 
 import wasmInit, {find_word_score, Game, InitOutput, WordCheck} from 'word-game';
 
-import dictionary from './dictionary.json';
-
 /** Information */
 export interface ScoreChange extends Event {
 	detail: {
@@ -23,12 +21,9 @@ export class GameJ {
 	ready: boolean;
 	/** Current game score */
 	score: number;
-	/** Words that have been found */
-	wordsFound: string[];
 
 	constructor(readyCallback: Function, size: number) {
 		this.score = 0;
-		this.wordsFound = [];
 		this.ready = false;
 		this.init(size, readyCallback);
 	}
@@ -48,38 +43,19 @@ export class GameJ {
 	 * @param word - Word to add to score
 	 */
 	AddWordToScore = (word: string): void => {
-		const wordScore: number = this.findWordScore(word);
+		const wordScore: number = find_word_score(word);
 		this.score += wordScore;
 		const details: {detail: {score: number}} = {detail: {score: this.score}};
 		const event: ScoreChange = new CustomEvent('score-change', details);
 		window.dispatchEvent(event);
 	}
 
-	/** Checks to see if the word is in the dictionary
-	 *
-	 * @param word - Word to check
-	 * @returns AlreadyFound, Found, NotFound
-	 */
 	checkWord = (word: string): WordCheck => {
-		const lowercaseWord = word.toLowerCase();
-		const alreadyFound = this.wordsFound.includes(lowercaseWord);
-		const foundInDictionary = (dictionary as string[]).includes(lowercaseWord);
-
-		if(alreadyFound) return WordCheck.AlreadyFound;
-
-		if(foundInDictionary) {
-			this.wordsFound.push(lowercaseWord);
-			this.AddWordToScore(word);
-			return WordCheck.Found;
-		} else {
-			return WordCheck.NotFound;
-		}
+		const result = this.game.check_word(word);
+		if(result == WordCheck.Found) this.AddWordToScore(word);
+		return result;
 	}
 
-	findWordScore = (word: string): number =>
-		find_word_score(word);
-
-	/** Gets a letter on the game board */
 	getLetter = (row: number, col: number): string =>
 		this.game.get_letter(row, col);
 }

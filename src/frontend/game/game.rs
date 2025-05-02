@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 
-use super::{const_fns::u8_to_letter_index, generation::{generate_letters, get_letter_values}};
+use super::{const_fns::u8_to_letter_index, dictionary::DICTIONARY, generation::{generate_letters, get_letter_values}};
 
 const LETTER_VALUES: [u16; 26] = get_letter_values();
 
@@ -33,6 +33,26 @@ impl Game {
 	pub fn add_word_to_score(&mut self, word: &str) {
 		let word_score = find_word_score(word);
 		self.score += word_score as u32;
+	}
+
+	#[wasm_bindgen]
+	pub fn check_word(&mut self, word: &str) -> WordCheck {
+		let lowercase_word = word.to_lowercase();
+
+		let already_found = self.words_found.contains(&lowercase_word);
+		if already_found {
+			return WordCheck::AlreadyFound;
+		}
+
+		let found_in_dictionary = DICTIONARY.contains(&lowercase_word.as_str());
+		if found_in_dictionary {
+			self.words_found.push(lowercase_word);
+			// Addwordtoscore
+
+			return WordCheck::Found;
+		}
+
+		return WordCheck::NotFound;
 	}
 
 	#[wasm_bindgen]
