@@ -9,6 +9,8 @@ RUN npm install
 
 COPY ./assets/ ./frontend/assets/
 
+COPY ./pkg/word_game_bg.wasm ./frontend/word_game_bg.wasm
+
 COPY ./output/ .
 
 EXPOSE 7070/tcp
