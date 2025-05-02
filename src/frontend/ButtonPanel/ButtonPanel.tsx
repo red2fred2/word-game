@@ -5,7 +5,6 @@ import Rotate90DegreesCwIcon from '@mui/icons-material/Rotate90DegreesCw';
 import Rotate90DegreesCcwIcon from '@mui/icons-material/Rotate90DegreesCcw';
 
 import './button-panel.scss';
-import { ScoreChange } from '../game/Game';
 
 export interface ButtonPanelProps {}
 
@@ -23,8 +22,8 @@ export class ButtonPanel extends Component<ButtonPanelProps, ButtonPanelState> {
 	}
 
 	componentDidMount = (): void => {
-		window.addEventListener('score-change', (event: ScoreChange) =>
-			this.setState({score: event.detail.score})
+		window.addEventListener('score-change', (event: CustomEventInit<number>) =>
+			this.setState({score: event.detail!})
 		);
 	}
 

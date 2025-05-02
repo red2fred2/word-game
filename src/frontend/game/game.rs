@@ -1,4 +1,5 @@
 use wasm_bindgen::prelude::*;
+use web_sys::{CustomEvent, CustomEventInit};
 
 use super::{const_fns::u8_to_letter_index, dictionary::DICTIONARY, generation::{generate_letters, get_letter_values}};
 
@@ -29,10 +30,16 @@ impl Game {
 		Game {letters, score, size, words_found}
 	}
 
-	#[wasm_bindgen]
-	pub fn add_word_to_score(&mut self, word: &str) {
+	fn add_word_to_score(&mut self, word: &str) {
 		let word_score = find_word_score(word);
 		self.score += word_score as u32;
+
+		let details = CustomEventInit::new();
+		details.set_detail(&JsValue::from_f64(self.score as f64));
+		let event = CustomEvent::new_with_event_init_dict("score-change", &details).unwrap();
+
+		let window = web_sys::window().unwrap();
+		let _ = window.dispatch_event(&event);
 	}
 
 	#[wasm_bindgen]
@@ -47,7 +54,7 @@ impl Game {
 		let found_in_dictionary = DICTIONARY.contains(&lowercase_word.as_str());
 		if found_in_dictionary {
 			self.words_found.push(lowercase_word);
-			// Addwordtoscore
+			self.add_word_to_score(word);
 
 			return WordCheck::Found;
 		}
