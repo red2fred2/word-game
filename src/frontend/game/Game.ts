@@ -76,9 +76,8 @@ export class GameJ {
 		}
 	}
 
-	findWordScore = (word: string): number => {
-		return find_word_score(word);
-	}
+	findWordScore = (word: string): number =>
+		find_word_score(word);
 
 	/** Gets a letter on the game board */
 	getLetter = (row: number, col: number): string =>
