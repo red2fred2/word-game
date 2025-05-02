@@ -6,11 +6,9 @@
 import { Component, JSX } from 'react';
 import { Box } from '@mui/material';
 
-import { GameJ } from '../game/Game';
 import { None, Option } from '../Option';
 import { ActivationCallback, Tile } from './Tile/Tile';
-import { WordCheck } from 'word-game';
-
+import wasmInit, {Game, WordCheck} from 'word-game';
 import './game-board.scss';
 
 /**
@@ -46,7 +44,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	/** Bad callbacks for the currently active {@link Tile | Tiles} on the board */
 	badCallbacks: Function[];
 	/** The game being played on this board */
-	game: GameJ;
+	game: Game;
 	/** Good callbacks for the currently active {@link Tile | Tiles} on the board */
 	goodCallbacks: Function[];
 	/** The last {@link Tile | Tiles} that was activated */
@@ -73,7 +71,6 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		this.clearActiveTiles();
 
 		// Initialize state
-		this.game = new GameJ(this.readyCallback, props.size);
 		this.state = {
 			flipX: false,
 			flipY: false,
@@ -81,6 +78,15 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 			rotation: 0,
 			sizeClass: `grid-${props.size}`
 		};
+
+		// Initialize async stuff
+		this.asyncInit(props.size);
+	}
+
+	asyncInit = async (size: number) => {
+		await wasmInit('word_game_bg.wasm');
+		this.game = new Game(size);
+		this.setState({loading: false});
 	}
 
 	/**
@@ -136,7 +142,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 		return tileNumbers.map(num => {
 			const row: number = num % this.props.size;
 			const col: number = Math.floor(num / this.props.size);
-			const letter: string = this.game.getLetter(row, col);
+			const letter: string = this.game.get_letter(row, col);
 			const tileCallback: ActivationCallback = this.getTileActivation(row, col, letter);
 
 			return <Tile letter={letter} activationCallback={tileCallback} key={num}/>
@@ -186,7 +192,7 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 			if(isActive) {
 				// Check if the word was real
 				const word: string = this.selectedLetters.join('');
-				const wordCheck: WordCheck = this.game.checkWord(word);
+				const wordCheck: WordCheck = this.game.check_word(word);
 
 				if(wordCheck == WordCheck.Found) forEachWithDelay(this.goodCallbacks, cb => cb(), 50);
 				else if(wordCheck == WordCheck.AlreadyFound) forEachWithDelay(this.midCallbacks, cb => cb(), 50);
@@ -211,10 +217,6 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 			return true;
 	}
 
-	readyCallback = (): void => {
-		this.setState({loading: false});
-	}
-
 	rotateCcw = (): void => {
 		let rotation = this.state.rotation;
 		rotation = (rotation + 270) % 360;
@@ -231,14 +233,14 @@ export class GameBoard extends Component<GameBoardProps, GameBoardState> {
 	 * Renders the react component
 	 */
 	render = (): JSX.Element =>
-		this.game.ready ?
+		this.state.loading ?
+		<Box className="game-board"></Box>
+		:
 		<Box className="game-board">
 			<Box className={`game-board-container board-animate ${this.state.sizeClass} board-rotate-${this.state.rotation} ${this.state.flipX ? "board-flip-x": ""} ${this.state.flipY ? "board-flip-y": ""}`}>
 				{this.createTiles()}
 			</Box>
 		</Box>
-		:
-		<Box className="game-board"></Box>
 }
 
 /**
