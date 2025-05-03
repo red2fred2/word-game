@@ -22,5 +22,6 @@
 		"defaultColor": "white",
 		"reloadButton": "↻",
 		"loadNpmCommands": false
-	}
+	},
+	"rust-analyzer.files.exclude": ["src/frontend/game/dictionary.rs"]
 }
