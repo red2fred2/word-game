@@ -1,6 +1,8 @@
 # Word Game
 A boggle-like game run as a web app.
 
+![Demo video](https://github.com/red2fred2/word-game/raw/refs/heads/main/video.mp4)
+
 ### Requirements
 * Node
 * Docker
