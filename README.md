@@ -3,7 +3,7 @@ A boggle-like game run as a web app.
 
 https://github.com/user-attachments/assets/ee826795-97df-4ea8-b3d1-d2bc5a15575b
 
-### Requirements
+### Requirements to build
 * Node
 * Docker
 * Docker Buildx
