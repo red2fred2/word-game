@@ -1,7 +1,7 @@
 # Word Game
 A boggle-like game run as a web app.
 
-[![Demo video](https://github.com/red2fred2/word-game/raw/refs/heads/main/video preview.jpg)](https://github.com/red2fred2/word-game/raw/refs/heads/main/video.mp4)
+https://github.com/user-attachments/assets/ee826795-97df-4ea8-b3d1-d2bc5a15575b
 
 ### Requirements
 * Node
