@@ -1,10 +1,8 @@
+include!(concat!(env!("OUT_DIR"), "/constants.rs"));
+
 use rand::random;
 
-use super::{const_fns::{count_letters, normalize_array}, dictionary::DICTIONARY};
-
 const LETTERS: [char; 26] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-#[allow(long_running_const_eval)]
-const PDF: [f32; 26] = get_word_list_pdf();
 
 pub fn generate_letters(size: u8) -> Vec<Vec<String>> {
 	let pdf = PDF.to_vec();
@@ -33,13 +31,6 @@ pub const fn get_letter_values() -> [u16; 26] {
 	}
 
 	return values;
-}
-
-/// Gets the relative frequency of each letter in the dictionary
-/// Will not work the way you think if not every letter shows up
-const fn get_word_list_pdf() -> [f32; 26] {
-	let counts = count_letters(&DICTIONARY);
-	return normalize_array(&counts);
 }
 
 /// Gets a random item from an array, using the probability distribution function

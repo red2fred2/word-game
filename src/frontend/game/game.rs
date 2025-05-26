@@ -1,7 +1,11 @@
+#[path = "../../../prebuild/const_fns.rs"]
+mod const_fns;
+
 use wasm_bindgen::prelude::*;
 use web_sys::{CustomEvent, CustomEventInit};
 
-use super::{const_fns::u8_to_letter_index, dictionary::DICTIONARY, generation::{generate_letters, get_letter_values}};
+use super::{dictionary::DICTIONARY, generation::{generate_letters, get_letter_values}};
+use const_fns::u8_to_letter_index;
 
 const LETTER_VALUES: [u16; 26] = get_letter_values();
 
