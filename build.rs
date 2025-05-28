@@ -1,6 +1,6 @@
 #[path = "prebuild/const_fns.rs"]
 mod const_fns;
-#[path = "prebuild/dictionary.rs"]
+#[path = "src/frontend/game/dictionary.rs"]
 mod dictionary;
 #[path = "src/frontend/game/dictionary_tree.rs"]
 mod dictionary_tree;
