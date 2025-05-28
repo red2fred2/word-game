@@ -223,21 +223,37 @@ mod tests {
 		})
 	}
 
-	// #[bench]
-	// fn dictionary_tree_bench_add_1000_concurrent(b: &mut Bencher) {
-	// 	b.iter(|| {
-	// 		let mut tree = DictionaryTreeBuilder::new();
-	// 		let mut n = 0;
+	#[bench]
+	fn dictionary_tree_bench_add_1000_concurrent(b: &mut Bencher) {
+		b.iter(|| {
+			let mut tree = DictionaryTreeBuilder::new();
+			let mut n = 0;
 
-	// 		for word in DICTIONARY {
-	// 			if n > 1000 {
-	// 				break;
-	// 			}
-	// 			tree.add(word.as_bytes());
-	// 			n += 1;
-	// 		}
-	// 	})
-	// }
+			for word in DICTIONARY {
+				if n > 1000 {
+					break;
+				}
+				tree.add(word.as_bytes());
+				n += 1;
+			}
+		})
+	}
+
+	#[bench]
+	fn dictionary_tree_bench_add_10000_concurrent(b: &mut Bencher) {
+		b.iter(|| {
+			let mut tree = DictionaryTreeBuilder::new();
+			let mut n = 0;
+
+			for word in DICTIONARY {
+				if n > 10000 {
+					break;
+				}
+				tree.add(word.as_bytes());
+				n += 1;
+			}
+		})
+	}
 
 	#[bench]
 	fn dictionary_tree_bench_get_letters_100_words(b: &mut Bencher) {
