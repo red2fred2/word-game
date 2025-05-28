@@ -1,4 +1,5 @@
 #![feature(ascii_char)]
+#![feature(test)]
 
 use wasm_bindgen::prelude::*;
 use wasm_log;
