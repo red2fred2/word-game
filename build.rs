@@ -22,14 +22,9 @@ const fn get_word_list_pdf() -> [f32; 26] {
 
 fn build_dictionary_tree() -> DictionaryTreeBuilder {
 	let mut tree = DictionaryTreeBuilder::new();
-	let mut n = 0;
 
 	for word in DICTIONARY {
-		if n > 1000 {
-			break;
-		}
 		tree.add(word.as_bytes());
-		n += 1;
 	}
 
 	return tree;
@@ -40,8 +35,8 @@ fn main() {
     let dest_path = Path::new(&out_dir).join("constants.rs");
 
 	let const_declarations = vec![
-		const_declaration!(DICTIONARY_TREE = build_dictionary_tree()),
-		const_declaration!(PDF = get_word_list_pdf()),
+		const_declaration!(pub DICTIONARY_TREE = build_dictionary_tree()),
+		const_declaration!(pub PDF = get_word_list_pdf()),
 	].join("\n");
 
 	fs::write(&dest_path, const_declarations).unwrap();

@@ -4,11 +4,50 @@ use const_gen::CompileConst;
 
 #[allow(dead_code)]
 #[derive(Debug)]
-pub enum DictionaryTree<'a> {
+pub enum DictionaryTree {
 	DeadEnd,
-	PartOfWord(&'a[DictionaryTree<'a>; 26]),
-	Word(&'a[DictionaryTree<'a>; 26]),
+	PartOfWord(&'static[DictionaryTree; 26]),
+	Word(&'static[DictionaryTree; 26]),
 }
+
+#[allow(unused)]
+impl DictionaryTree {
+	/// Returns true if word is in the dictionary, false otherwise
+	pub fn check_word(&self, word: &[u8]) -> bool {
+		match self {
+			DictionaryTree::DeadEnd => false,
+			DictionaryTree::PartOfWord(letters) => {
+				if word.len() == 0 {
+					return false;
+				}
+
+
+				let (left, rest_of_word) = word.split_at(1);
+				let first_letter = left[0];
+				let letter_index = u8_to_letter_index(first_letter);
+
+				return letters[letter_index].check_word(rest_of_word);
+			},
+			DictionaryTree::Word(letters) => {
+				if word.len() == 0 {
+					return true;
+				}
+
+				let (left, rest_of_word) = word.split_at(1);
+				let first_letter = left[0];
+				let letter_index = u8_to_letter_index(first_letter);
+
+				return letters[letter_index].check_word(rest_of_word);
+			},
+		}
+	}
+
+	/// Returns false if the letters hit a dead end, true otherwise
+	pub fn check_word_part(&self, word: &[u8]) -> bool {
+		todo!()
+	}
+}
+
 
 #[allow(unused)]
 #[derive(Clone, Debug)]
@@ -16,19 +55,6 @@ pub enum DictionaryTreeBuilder {
 	DeadEnd,
 	PartOfWord(Rc<RefCell<Vec<Box<DictionaryTreeBuilder>>>>),
 	Word(Rc<RefCell<Vec<Box<DictionaryTreeBuilder>>>>),
-}
-
-#[allow(unused)]
-impl DictionaryTreeBuilder {
-	/// Returns true if word is in the dictionary, false otherwise
-	pub fn check_word(&self) -> bool {
-		todo!()
-	}
-
-	/// Returns false if the letters hit a dead end, true otherwise
-	pub fn check_word_part(&self) -> bool {
-		todo!()
-	}
 }
 
 #[allow(unused)]

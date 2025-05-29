@@ -4,7 +4,8 @@ mod const_fns;
 use wasm_bindgen::prelude::*;
 use web_sys::{CustomEvent, CustomEventInit};
 
-use super::{dictionary::DICTIONARY, generation::{generate_letters, get_letter_values}};
+use crate::DICTIONARY_TREE;
+use super::generation::{generate_letters, get_letter_values};
 use const_fns::u8_to_letter_index;
 
 const LETTER_VALUES: [u16; 26] = get_letter_values();
@@ -20,6 +21,7 @@ pub enum WordCheck {
 pub struct Game {
 	letters: Vec<Vec<String>>,
 	score: u32,
+	#[allow(unused)]
 	size: u8,
 	words_found: Vec<String>,
 }
@@ -55,7 +57,7 @@ impl Game {
 			return WordCheck::AlreadyFound;
 		}
 
-		let found_in_dictionary = DICTIONARY.contains(&lowercase_word.as_str());
+		let found_in_dictionary = DICTIONARY_TREE.check_word(word.as_bytes());
 		if found_in_dictionary {
 			self.words_found.push(lowercase_word);
 			self.add_word_to_score(word);
