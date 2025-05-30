@@ -24,7 +24,7 @@ fn build_dictionary_tree() -> DictionaryTreeBuilder {
 	let mut tree = DictionaryTreeBuilder::new();
 
 	for word in DICTIONARY {
-		tree.add(word.as_bytes());
+		tree.add(word.to_uppercase().as_bytes());
 	}
 
 	return tree;
